@@ -4,7 +4,7 @@ public enum Shout {
 	
 	Allegeance_Animale("Raan", "Mir", "Tah", 50, 60, 70),
 	Allie_Draconique("OD", "Ah", "Ving", 5, 5, 300),
-	Allié_Heroique("Hun", "Kaal", "Zoor", 5, 5, 180),
+	Allie_Heroique("Hun", "Kaal", "Zoor", 5, 5, 180),
 	Aspect_Draconique("Mul", "Qah", "Diiv", 50, 100, 150),
 	Aura_de_Perception("Laas", "Yah", "Nir", 30, 40, 50),
 	Ciel_Degage("Lok", "Vah", "Koor", 5, 10, 15),
