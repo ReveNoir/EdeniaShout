@@ -16,7 +16,7 @@ public class Liste implements CommandExecutor{
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 		
 			Player player = (Player) src;
-			player.sendMessage(Text.of("Ceci est un Test bonj"));
+			player.sendMessage(Text.of("Ceci est un Test"));
 			
 		return CommandResult.success();
 	}
