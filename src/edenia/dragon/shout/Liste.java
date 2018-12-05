@@ -8,6 +8,7 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.util.Color;
 
 
 public class Liste implements CommandExecutor{
@@ -16,7 +17,11 @@ public class Liste implements CommandExecutor{
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 		
 			Player player = (Player) src;
-			player.sendMessage(Text.of("Ceci est un Test"));
+			
+			for(Shout s : Shout.values()){
+				player.sendMessage(Text.of(Color.BLUE + s.name));
+			}
+			
 			
 		return CommandResult.success();
 	}
