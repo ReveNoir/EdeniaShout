@@ -5,8 +5,5 @@
 	<classpathentry kind="lib" path="F:/Eclipse/Plugin MC/API/spongeapi-7.1.0-shaded.jar"/>
 	<classpathentry kind="lib" path="F:/Eclipse/Plugin MC/API/spongeforge-1.12.2-2768-7.1.4.jar"/>
 	<classpathentry kind="lib" path="F:/Eclipse/Plugin MC/API/spongeforge-1.12.2-2768-7.1.4-dev-shaded.jar"/>
-	<classpathentry kind="lib" path="G:/Eclipse/Plugin MC/API/spongeapi-7.1.0-shaded.jar"/>
-	<classpathentry kind="lib" path="G:/Eclipse/Plugin MC/API/spongeforge-1.12.2-2768-7.1.4.jar"/>
-	<classpathentry kind="lib" path="G:/Eclipse/Plugin MC/API/spongeforge-1.12.2-2768-7.1.4-dev-shaded.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

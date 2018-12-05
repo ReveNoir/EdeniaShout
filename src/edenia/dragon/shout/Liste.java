@@ -8,7 +8,7 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.util.Color;
+import org.spongepowered.api.text.format.TextColors;
 
 
 public class Liste implements CommandExecutor{
@@ -18,9 +18,15 @@ public class Liste implements CommandExecutor{
 		
 			Player player = (Player) src;
 			
-			for(Shout s : Shout.values()){
-				player.sendMessage(Text.of(Color.BLUE + s.name));
+			player.sendMessage(Text.of("  Liste des Cris connu"));
+			player.sendMessage(Text.of("----------------------"));
+			
+			if(player.hasPermission("eden.op")){
+				for(Shout s : Shout.values()){
+					player.sendMessage(Text.of(TextColors.DARK_AQUA, s.name, " - ", s.m1, " ", s.m2, " ", s.m3));
+				}
 			}
+			player.sendMessage(Text.of("----------------------"));
 			
 			
 		return CommandResult.success();

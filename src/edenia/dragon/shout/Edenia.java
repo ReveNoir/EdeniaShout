@@ -27,7 +27,7 @@ public class Edenia{
 	public void onServersStarting(GameStartingServerEvent event){
 		logger.info("Edenia Dragon Shout Start !");
 		CommandSpec ds = CommandSpec.builder()
-				.description(Text.of("Affiche la liste des Cris connu"))
+				.description(Text.of("- /ds : Affiche la liste des Cris connu"))
 				.executor(new Liste())
 				.build();
 		Sponge.getCommandManager().register(this, ds, "dragonshout", "ds");
