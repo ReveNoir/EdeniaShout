@@ -28,6 +28,9 @@ public class Liste implements CommandExecutor{
 			}
 			player.sendMessage(Text.of("----------------------"));
 			
+			//Pour des tests
+			ConfigurationManager.getInstance().editConfig(player.getName());
+			
 			
 		return CommandResult.success();
 	}
