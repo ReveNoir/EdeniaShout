@@ -50,7 +50,7 @@ private static ConfigurationManager instance = new ConfigurationManager();
 	
 	public void editConfig(String p){
 		loadConfig();
-		config.getNode("shouts", "Player").setValue(p);
+		config.getNode("shouts", "Player", p).setValue("test");
 		saveConfig();
 		loadConfig();
 	}

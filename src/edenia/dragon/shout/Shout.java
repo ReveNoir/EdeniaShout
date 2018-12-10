@@ -31,12 +31,16 @@ public enum Shout {
 	Tourmente("Strun", "Bah", "Qo", 300, 480, 600);
 	
 	public String name, m1, m2, m3;
+	public int c1, c2, c3;
 	
 	Shout(String w1, String w2, String w3, int cool1, int cool2, int cool3){
 		this.name = name().replace("_", " ");
 		this.m1 = w1;
 		this.m2 = w2;
 		this.m3 = w3;
+		this.c1 = cool1;
+		this.c2 = cool2;
+		this.c3 = cool3;
 	}
 	
 	
