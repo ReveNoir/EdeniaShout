@@ -1,5 +1,14 @@
 package edenia.dragon.shout;
 
+import java.util.Collection;
+
+import org.spongepowered.api.effect.sound.SoundTypes;
+import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.world.Location;
+
+import com.flowpowered.math.vector.Vector3d;
+
 public enum Shout {
 	
 	Allegeance_Animale("Raan", "Mir", "Tah", 50, 60, 70),
@@ -33,14 +42,34 @@ public enum Shout {
 	public String name, m1, m2, m3;
 	public int c1, c2, c3;
 	
+	@SuppressWarnings("rawtypes")
+	public static Vector3d getVelocity(Vector3d c, Location f) {
+		return new Vector3d(f.getX()-c.getX(), 0.6, f.getZ()-c.getZ()).mul(5/f.getPosition().distance(c));
+	}
+	
 	Shout(String w1, String w2, String w3, int cool1, int cool2, int cool3){
 		this.name = name().replace("_", " ");
+		
 		this.m1 = w1;
 		this.m2 = w2;
 		this.m3 = w3;
+		
 		this.c1 = cool1;
 		this.c2 = cool2;
 		this.c3 = cool3;
+	}
+	
+	public void shout(Player p){
+		
+		if(this == Deferlement){
+			Collection<Entity> near = p.getNearbyEntities(15);
+			p.getWorld().playSound(SoundTypes.ENTITY_GENERIC_EXPLODE, p.getLocation().getPosition(), 1);
+			for(Entity e : near){
+				if((e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 4) && e!=p){
+					e.setVelocity(getVelocity(p.getLocation().getPosition(), e.getLocation()).mul(1/ 2+1).mul(2).add(new Vector3d(0, 0.5, 0)));
+				}
+			}
+		}
 	}
 	
 	

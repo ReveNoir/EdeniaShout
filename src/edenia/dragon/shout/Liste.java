@@ -1,6 +1,5 @@
 package edenia.dragon.shout;
 
-
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -12,11 +11,10 @@ import org.spongepowered.api.text.format.TextColors;
 
 
 public class Liste implements CommandExecutor{
-	
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-		
 			Player player = (Player) src;
+			String uuid = String.valueOf(player.getProfile().getUniqueId());
 			
 			player.sendMessage(Text.of("  Liste des Cris connu"));
 			player.sendMessage(Text.of("----------------------"));
@@ -29,7 +27,7 @@ public class Liste implements CommandExecutor{
 			player.sendMessage(Text.of("----------------------"));
 			
 			//Pour des tests
-			ConfigurationManager.getInstance().editConfig(player.getName());
+			ConfigurationManager.getInstance().editConfig(player.getName(), uuid);
 			
 			
 		return CommandResult.success();
