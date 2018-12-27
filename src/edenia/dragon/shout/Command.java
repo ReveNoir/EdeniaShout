@@ -6,7 +6,7 @@ import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.text.Text;
+//import org.spongepowered.api.text.Text;
 
 public class Command implements CommandExecutor {
 
@@ -15,13 +15,30 @@ public class Command implements CommandExecutor {
 		
 		Player p = (Player) src;
 		String args1 = args.getOne("mot1").get().toString();
+		String args2 = args.getOne("mot2").get().toString();
+		String args3 = args.getOne("mot3").get().toString();
 		
-		
-		for(Shout s : Shout.values()){
-			if(args1.equalsIgnoreCase(s.m1)){
-				s.shout(p);
-				break;
-			}else{p.sendMessage(Text.of("BAD"));}
+		if((args1 != "©") && (args2 != "©") && (args3 != "©")){
+			for(Shout s : Shout.values()){
+				if((args1.equalsIgnoreCase(s.m1)) && (args2.equalsIgnoreCase(s.m2)) && (args3.equalsIgnoreCase(s.m3))){
+					s.shout(p, 3);
+					break;
+				}//else{p.sendMessage(Text.of("BAD"));}
+			}
+		}else if((args1 != "©") && (args2 != "©") && (args3 == "©")){
+			for(Shout s : Shout.values()){
+				if((args1.equalsIgnoreCase(s.m1)) && (args2.equalsIgnoreCase(s.m2))){
+					s.shout(p, 2);
+					break;
+				}//else{p.sendMessage(Text.of("BAD"));}
+			}
+		}else if((args1 != "©") && (args2 == "©") && (args3 == "©")){
+			for(Shout s : Shout.values()){
+				if(args1.equalsIgnoreCase(s.m1)){
+					s.shout(p, 1);
+					break;
+				}//else{p.sendMessage(Text.of("BAD"));}
+			}
 		}
 		
 		return CommandResult.success();

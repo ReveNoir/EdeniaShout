@@ -9,6 +9,7 @@ import org.spongepowered.api.world.Location;
 
 import com.flowpowered.math.vector.Vector3d;
 
+
 public enum Shout {
 	
 	Allegeance_Animale("Raan", "Mir", "Tah", 50, 60, 70),
@@ -59,14 +60,16 @@ public enum Shout {
 		this.c3 = cool3;
 	}
 	
-	public void shout(Player p){
+	public void shout(final Player p, final int num){
 		
 		if(this == Deferlement){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_GENERIC_EXPLODE, p.getLocation().getPosition(), 1);
+			Particules.Nuage.effet(p, 200*num);
 			for(Entity e : near){
 				if((e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 4) && e!=p){
-					e.setVelocity(getVelocity(p.getLocation().getPosition(), e.getLocation()).mul(1/ 2+1).mul(2).add(new Vector3d(0, 0.5, 0)));
+					e.setVelocity(getVelocity(p.getLocation().getPosition(), e.getLocation()).mul(num/ 2 + 1)
+							.mul(1).add(new Vector3d(0, 0.1, 0)));
 				}
 			}
 		}

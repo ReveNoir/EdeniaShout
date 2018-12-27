@@ -46,7 +46,9 @@ public class Edenia{
 				.build();
 		CommandSpec cmd = CommandSpec.builder()
 				.description(Text.of(": Vous permet de lancer un Cri"))
-				.arguments(GenericArguments.string(Text.of("mot1")))
+				.arguments(GenericArguments.optionalWeak(GenericArguments.string(Text.of("mot1")), "©"),
+						GenericArguments.optionalWeak(GenericArguments.string(Text.of("mot2")), "©"),
+						GenericArguments.optionalWeak(GenericArguments.string(Text.of("mot3")), "©"))
 				.executor(new Command())
 				.build();
 		
