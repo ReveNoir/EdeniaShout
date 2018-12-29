@@ -1,5 +1,6 @@
-package edenia.dragon.shout;
+package edenia.dragon.shout.command;
 
+import edenia.dragon.shout.utils.Shout;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -17,22 +18,22 @@ public class Command implements CommandExecutor {
 		String args2 = args.getOne("mot2").get().toString();
 		String args3 = args.getOne("mot3").get().toString();
 		
-		//Bloc gérant le /shout <mot1> <mot2> <mot3> :
-		if((args1 != "©") && (args2 != "©") && (args3 != "©")){
+		//Bloc gï¿½rant le /shout <mot1> <mot2> <mot3> :
+		if((args1 != "ï¿½") && (args2 != "ï¿½") && (args3 != "ï¿½")){
 			for(Shout s : Shout.values()){
 				if((args1.equalsIgnoreCase(s.m1)) && (args2.equalsIgnoreCase(s.m2)) && (args3.equalsIgnoreCase(s.m3))){
 					s.shout(p, 3);
 					break;
 				}
 			}
-		}else if((args1 != "©") && (args2 != "©") && (args3 == "©")){
+		}else if((args1 != "ï¿½") && (args2 != "ï¿½") && (args3 == "ï¿½")){
 			for(Shout s : Shout.values()){
 				if((args1.equalsIgnoreCase(s.m1)) && (args2.equalsIgnoreCase(s.m2))){
 					s.shout(p, 2);
 					break;
 				}
 			}
-		}else if((args1 != "©") && (args2 == "©") && (args3 == "©")){
+		}else if((args1 != "ï¿½") && (args2 == "ï¿½") && (args3 == "ï¿½")){
 			for(Shout s : Shout.values()){
 				if(args1.equalsIgnoreCase(s.m1)){
 					s.shout(p, 1);

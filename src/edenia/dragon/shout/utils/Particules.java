@@ -1,4 +1,4 @@
-package edenia.dragon.shout;
+package edenia.dragon.shout.utils;
 
 import org.spongepowered.api.effect.particle.ParticleEffect;
 import org.spongepowered.api.effect.particle.ParticleTypes;
