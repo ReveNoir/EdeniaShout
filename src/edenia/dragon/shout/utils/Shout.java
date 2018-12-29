@@ -1,4 +1,4 @@
-package edenia.dragon.shout;
+package edenia.dragon.shout.utils;
 
 import java.util.Collection;
 

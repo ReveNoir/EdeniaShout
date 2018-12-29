@@ -3,6 +3,10 @@ package edenia.dragon.shout;
 import java.io.File;
 import java.util.logging.Logger;
 
+import edenia.dragon.shout.command.Command;
+import edenia.dragon.shout.command.ConfigurationManager;
+import edenia.dragon.shout.command.Liste;
+import edenia.dragon.shout.listener.Learn;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
@@ -39,7 +43,7 @@ public class Edenia{
 		logger.info("Edenia Dragon Shout Start !");
 		
 		ConfigurationManager.getInstance().setup(configFile, configManager);
-		Sponge.getEventManager().registerListeners(this, new Learn());
+		Sponge.getEventManager().registerListeners(this, new Learn(this));
 		
 		CommandSpec ds = CommandSpec.builder()
 				.description(Text.of("- /ds : Affiche la liste des Cris connu"))
@@ -47,9 +51,9 @@ public class Edenia{
 				.build();
 		CommandSpec cmd = CommandSpec.builder()
 				.description(Text.of(": Vous permet de lancer un Cri"))
-				.arguments(GenericArguments.optionalWeak(GenericArguments.string(Text.of("mot1")), "©"),
-						GenericArguments.optionalWeak(GenericArguments.string(Text.of("mot2")), "©"),
-						GenericArguments.optionalWeak(GenericArguments.string(Text.of("mot3")), "©"))
+				.arguments(GenericArguments.optionalWeak(GenericArguments.string(Text.of("mot1")), "ï¿½"),
+						GenericArguments.optionalWeak(GenericArguments.string(Text.of("mot2")), "ï¿½"),
+						GenericArguments.optionalWeak(GenericArguments.string(Text.of("mot3")), "ï¿½"))
 				.executor(new Command())
 				.build();
 		
@@ -59,4 +63,6 @@ public class Edenia{
 
 	@Listener
 	public void onServerStop(GameStoppedServerEvent event) {logger.info("Edenia Dragon Shout Stop !");}
+
+	public Edenia getPlugin() { return this; }
 }
