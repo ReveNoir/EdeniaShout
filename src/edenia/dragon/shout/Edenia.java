@@ -39,6 +39,7 @@ public class Edenia{
 		logger.info("Edenia Dragon Shout Start !");
 		
 		ConfigurationManager.getInstance().setup(configFile, configManager);
+		Sponge.getEventManager().registerListeners(this, new Learn());
 		
 		CommandSpec ds = CommandSpec.builder()
 				.description(Text.of("- /ds : Affiche la liste des Cris connu"))
