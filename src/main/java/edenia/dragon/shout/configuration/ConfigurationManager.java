@@ -1,4 +1,4 @@
-package edenia.dragon.shout.command;
+package edenia.dragon.shout.configuration;
 
 import java.io.File;
 import java.io.IOException;
