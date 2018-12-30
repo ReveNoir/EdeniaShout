@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group 'edenia.dragon.shout'
+version '1.0'
+
+rootProject.version = "1.0"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spongepowered.org/maven' }
+    maven { url 'http://repo.drnaylor.co.uk/artifactory/list/minecraft' }
+}
+
+dependencies {
+    compileOnly 'org.spongepowered:spongeapi:7.0.0'
+}
+
+task fatjar(type: Jar) {
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    with jar
+}
