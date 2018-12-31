@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spongepowered:spongeapi:7.0.0'
+    compileOnly 'org.spongepowered:spongeapi:7.1.0'
 }
 
 task fatjar(type: Jar) {
