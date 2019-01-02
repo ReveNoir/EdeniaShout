@@ -40,10 +40,15 @@ public class ConfigurationManager {
 		catch (IOException e) {e.printStackTrace();}
 	}
 	
-	public void editConfig(String p, String id){
+	public void editConfig(String type, String p, String arg){
 		loadConfig();
-		if(config.getNode("shouts", "Player", p).getValue() != id){
-			config.getNode("shouts", "Player", p).setValue(id);
+		if(type == "player"){
+			if(config.getNode("shouts", "Player", p).getValue() != arg){
+				config.getNode("shouts", "Player", p).setValue(arg);
+			}
+		}
+		if(type == "mur"){
+			config.getNode("murs", p).setValue(arg);
 		}
 		saveConfig();
 		loadConfig();
