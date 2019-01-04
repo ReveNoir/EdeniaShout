@@ -2,9 +2,15 @@ package edenia.dragon.shout.configuration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
+import com.google.common.reflect.TypeToken;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
+import org.spongepowered.api.block.BlockSnapshot;
+import org.spongepowered.api.util.TypeTokens;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
 public class ConfigurationManager {
 	private static ConfigurationManager instance = new ConfigurationManager();
@@ -40,15 +46,19 @@ public class ConfigurationManager {
 		catch (IOException e) {e.printStackTrace();}
 	}
 	
-	public void editConfig(String type, String p, String arg){
+	public void editConfigP(String p, String arg){
 		loadConfig();
-		if(type == "player"){
-			if(config.getNode("shouts", "Player", p).getValue() != arg){
-				config.getNode("shouts", "Player", p).setValue(arg);
-			}
+		if(config.getNode("shouts", "Player", p).getValue() != arg){
+			config.getNode("shouts", "Player", p).setValue(arg);
 		}
-		if(type == "mur"){
-			config.getNode("murs", p).setValue(arg);
+		saveConfig();
+		loadConfig();
+	}
+
+	public void editConfigM(String cri, String nb, String arg){
+		loadConfig();
+		if(config.getNode("murs", cri, "Location", nb).getValue() != arg){
+			config.getNode("murs", cri, "Location", nb).setValue(arg);
 		}
 		saveConfig();
 		loadConfig();
