@@ -47,6 +47,8 @@ public class Edenia{
 
         CommandSpec ds = CommandSpec.builder()
                 .description(Text.of("- /ds : Affiche la liste des Cris connu"))
+                .arguments(GenericArguments.optionalWeak(GenericArguments.string(Text.of("arg1")), "�"),
+                        GenericArguments.optionalWeak(GenericArguments.string(Text.of("arg2")), "�"))
                 .executor(new Liste())
                 .build();
         CommandSpec cmd = CommandSpec.builder()

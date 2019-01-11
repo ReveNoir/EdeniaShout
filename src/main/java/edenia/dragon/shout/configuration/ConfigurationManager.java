@@ -55,6 +55,15 @@ public class ConfigurationManager {
 		loadConfig();
 	}
 
+	public void editConfigL(String uuid, String cri, String arg){
+		loadConfig();
+		if (config.getNode("shouts", "Learn", uuid, cri).getValue() != arg){
+			config.getNode("shouts", "Learn", uuid, cri).setValue(arg);
+		}
+		saveConfig();
+		loadConfig();
+	}
+
 	public void editConfigM(String cri, String nb, String arg){
 		loadConfig();
 		if(config.getNode("murs", cri, "Location", nb).getValue() != arg){

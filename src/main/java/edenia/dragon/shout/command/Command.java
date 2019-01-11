@@ -19,21 +19,24 @@ public class Command implements CommandExecutor {
 		String args3 = args.getOne("mot3").get().toString();
 		
 		//Bloc g�rant le /shout <mot1> <mot2> <mot3> :
-		if((args1 != "�") && (args2 != "�") && (args3 != "�")){
+		if((!args1.equalsIgnoreCase("�")) && (!args2.equalsIgnoreCase("�"))
+				&& (!args1.equalsIgnoreCase("�"))){
 			for(Shout s : Shout.values()){
 				if((args1.equalsIgnoreCase(s.m1)) && (args2.equalsIgnoreCase(s.m2)) && (args3.equalsIgnoreCase(s.m3))){
 					s.shout(p, 3);
 					break;
 				}
 			}
-		}else if((args1 != "�") && (args2 != "�") && (args3 == "�")){
+		}else if((!args1.equalsIgnoreCase("�")) && (!args1.equalsIgnoreCase("�"))
+				&& (args1.equalsIgnoreCase("�"))){
 			for(Shout s : Shout.values()){
 				if((args1.equalsIgnoreCase(s.m1)) && (args2.equalsIgnoreCase(s.m2))){
 					s.shout(p, 2);
 					break;
 				}
 			}
-		}else if((args1 != "�") && (args2 == "�") && (args3 == "�")){
+		}else if((!args1.equalsIgnoreCase("�")) && (args1.equalsIgnoreCase("�"))
+				&& (args1.equalsIgnoreCase("�"))){
 			for(Shout s : Shout.values()){
 				if(args1.equalsIgnoreCase(s.m1)){
 					s.shout(p, 1);
