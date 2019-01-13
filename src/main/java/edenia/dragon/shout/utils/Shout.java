@@ -74,6 +74,9 @@ public enum Shout {
 			}
 		}
 	}
+
+	//public void learnMessage(final Player p, final int num, String cri){
+	//}
 	
 	
 }

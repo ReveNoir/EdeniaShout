@@ -86,7 +86,30 @@ public class Learn {
 			if(ConfigurationManager.getInstance().getConfig().getNode("shouts", "Learn", uuid, criMur)
 					.getValue() == null){
 				ConfigurationManager.getInstance().editConfigL(uuid, criMur, "1");
+				ConfigurationManager.getInstance().editConfigLPos(uuid, bLoca);
+				removeItem(p, soul);
 				p.sendMessage(Text.of(TextColors.GREEN, "Vous venez d'apprendre ", TextColors.DARK_GREEN,criMur));
+			}else{
+				if(ConfigurationManager.getInstance().getConfig().getNode("shouts", "Learn", uuid, criMur)
+						.getString().equalsIgnoreCase("1")) {
+					if (!ConfigurationManager.getInstance().getConfig().getNode("learn", uuid, bLoca)
+							.getBoolean()) {
+						ConfigurationManager.getInstance().editConfigL(uuid, criMur, "2");
+						ConfigurationManager.getInstance().editConfigLPos(uuid, bLoca);
+						p.sendMessage(Text.of(TextColors.GREEN, "Vous venez d'apprendre ", TextColors.DARK_GREEN, criMur));
+					}
+				}else {
+					if (ConfigurationManager.getInstance().getConfig().getNode("shouts", "Learn", uuid, criMur)
+							.getString().equalsIgnoreCase("2")){
+						if (!ConfigurationManager.getInstance().getConfig().getNode("learn", uuid, bLoca)
+								.getBoolean()) {
+							ConfigurationManager.getInstance().editConfigL(uuid, criMur, "3");
+							ConfigurationManager.getInstance().editConfigLPos(uuid, bLoca);
+							p.sendMessage(Text.of(TextColors.GREEN, "Vous venez d'apprendre ", TextColors.DARK_GREEN
+									, criMur));
+						}
+					}
+				}
 			}
 		}
 
@@ -161,6 +184,14 @@ public class Learn {
 			}
 			event.setCancelled(true);
 			p.closeInventory();
+		}
+	}
+
+	private void removeItem(final Player p, final ItemStack item){
+		for (Inventory inv : p.getInventory().slots()){
+			if (inv.contains(item)){
+				p.sendMessage(Text.of("OK"));
+			}
 		}
 	}
 

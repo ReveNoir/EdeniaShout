@@ -64,6 +64,13 @@ public class ConfigurationManager {
 		loadConfig();
 	}
 
+	public void editConfigLPos(String uuid, String poscri){
+		loadConfig();
+		config.getNode("learn", uuid, poscri).setValue(true);
+		saveConfig();
+		loadConfig();
+	}
+
 	public void editConfigM(String cri, String nb, String arg){
 		loadConfig();
 		if(config.getNode("murs", cri, "Location", nb).getValue() != arg){
