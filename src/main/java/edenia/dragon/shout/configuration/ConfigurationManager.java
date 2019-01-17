@@ -79,4 +79,11 @@ public class ConfigurationManager {
 		saveConfig();
 		loadConfig();
 	}
+
+	public void removeConfigM(String cri, String nb){
+		loadConfig();
+		config.getNode("murs", cri, "Location", nb).setValue(null);
+		saveConfig();
+		loadConfig();
+	}
 }

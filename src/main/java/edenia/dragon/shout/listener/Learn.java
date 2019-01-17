@@ -2,15 +2,16 @@ package edenia.dragon.shout.listener;
 
 import edenia.dragon.shout.Edenia;
 import edenia.dragon.shout.configuration.ConfigurationManager;
-import edenia.dragon.shout.utils.Items;
 import edenia.dragon.shout.utils.Shout;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.block.BlockTypes;
+import org.spongepowered.api.data.Transaction;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.block.ChangeBlockEvent;
 import org.spongepowered.api.event.block.InteractBlockEvent;
 import org.spongepowered.api.event.filter.type.Exclude;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
@@ -96,6 +97,7 @@ public class Learn {
 							.getBoolean()) {
 						ConfigurationManager.getInstance().editConfigL(uuid, criMur, "2");
 						ConfigurationManager.getInstance().editConfigLPos(uuid, bLoca);
+						removeItem(p, soul);
 						p.sendMessage(Text.of(TextColors.GREEN, "Vous venez d'apprendre ", TextColors.DARK_GREEN, criMur));
 					}
 				}else {
@@ -105,6 +107,7 @@ public class Learn {
 								.getBoolean()) {
 							ConfigurationManager.getInstance().editConfigL(uuid, criMur, "3");
 							ConfigurationManager.getInstance().editConfigLPos(uuid, bLoca);
+							removeItem(p, soul);
 							p.sendMessage(Text.of(TextColors.GREEN, "Vous venez d'apprendre ", TextColors.DARK_GREEN
 									, criMur));
 						}
@@ -187,12 +190,40 @@ public class Learn {
 		}
 	}
 
-	private void removeItem(final Player p, final ItemStack item){
-		for (Inventory inv : p.getInventory().slots()){
-			if (inv.contains(item)){
-				p.sendMessage(Text.of("OK"));
+	@Listener
+	public void onRemoveWall(ChangeBlockEvent.Break event){
+		if(event.getSource() instanceof Player){
+			Player p = (Player) event.getSource();
+			for(Transaction<BlockSnapshot> b : event.getTransactions()){
+				if((b.getOriginal().getState().getType() == BlockTypes.BOOKSHELF) && (p.hasPermission("eden.op"))){
+					String locb = b.getOriginal().getLocation().toString();
+					if(locCri.containsKey(locb)){
+						String cri = locCri.get(locb);
+						for (int i = 1; i <= 3; i++){
+							String loc = Integer.toString(i);
+							if (ConfigurationManager.getInstance().getConfig().getNode("murs", cri, "Location", loc)
+									.getString().equalsIgnoreCase(locb)){
+								ConfigurationManager.getInstance().removeConfigM(cri, loc);
+								locCri.remove(locb);
+								break;
+							}
+						}
+					}
+				}
 			}
 		}
+	}
+
+	private void removeItem(final Player p, final ItemStack item){
+
+		item.setQuantity(item.getQuantity() - 1);
+		p.setItemInHand(HandTypes.MAIN_HAND, item);
+		/*for (Inventory inv : p.getInventory().slots()){
+			if (inv.contains(item)){
+				inv.query(QueryOperationTypes.ITEM_STACK_IGNORE_QUANTITY.of(item)).poll(1);
+				break;
+			}
+		}*/
 	}
 
 }

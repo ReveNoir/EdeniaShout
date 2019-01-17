@@ -1,5 +1,6 @@
 package edenia.dragon.shout.command;
 
+import edenia.dragon.shout.configuration.ConfigurationManager;
 import edenia.dragon.shout.utils.Items;
 import edenia.dragon.shout.utils.Shout;
 import org.spongepowered.api.command.CommandException;
@@ -17,6 +18,7 @@ public class Liste implements CommandExecutor{
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 			Player player = (Player) src;
+			String uuid = player.getUniqueId().toString();
 			String arg1 = args.getOne("arg1").get().toString();
 			String arg2 = args.getOne("arg2").get().toString();
 
@@ -35,6 +37,25 @@ public class Liste implements CommandExecutor{
 				if(player.hasPermission("eden.op")){
 					for(Shout s : Shout.values()){
 						player.sendMessage(Text.of(TextColors.DARK_AQUA, s.name, " - ", s.m1, " ", s.m2, " ", s.m3));
+					}
+				}else{
+					for (Shout s : Shout.values()){
+						if(ConfigurationManager.getInstance().getConfig().getNode("shouts", "Learn", uuid, s.name)
+								.getValue() != null){
+							if(ConfigurationManager.getInstance().getConfig().getNode("shouts", "Learn", uuid, s.name)
+									.getString().equalsIgnoreCase("1")){
+								player.sendMessage(Text.of(TextColors.DARK_AQUA, s.name, " - ", s.m1));
+							}else if(ConfigurationManager.getInstance().getConfig()
+									.getNode("shouts", "Learn", uuid, s.name)
+									.getString().equalsIgnoreCase("2")){
+								player.sendMessage(Text.of(TextColors.DARK_AQUA, s.name, " - ", s.m1, " ", s.m2));
+							}else if (ConfigurationManager.getInstance().getConfig()
+									.getNode("shouts", "Learn", uuid, s.name)
+									.getString().equalsIgnoreCase("3")){
+								player.sendMessage(Text.of(TextColors.DARK_AQUA, s.name, " - ", s.m1, " ", s.m2
+										, " ", s.m3));
+							}
+						}
 					}
 				}
 				player.sendMessage(Text.of("----------------------"));
