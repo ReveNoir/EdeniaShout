@@ -1,13 +1,23 @@
 package edenia.dragon.shout.utils;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.effect.potion.PotionEffect;
+import org.spongepowered.api.effect.potion.PotionEffectTypes;
 import org.spongepowered.api.effect.sound.SoundTypes;
 import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.entity.living.Living;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.util.Direction;
 import org.spongepowered.api.world.Location;
 
 import com.flowpowered.math.vector.Vector3d;
+import org.spongepowered.api.world.weather.Weather;
+import org.spongepowered.api.world.weather.Weathers;
 
 
 public enum Shout {
@@ -61,8 +71,17 @@ public enum Shout {
 	}
 	
 	public void shout(final Player p, final int num){
-		
-		if(this == Deferlement){
+
+		if (this == Ciel_Degage){
+			p.getWorld().playSound(SoundTypes.ENTITY_LIGHTNING_THUNDER, p.getLocation().getPosition(), 1);
+			if (num == 3){
+				p.getWorld().setWeather(Weathers.CLEAR);
+			}else{
+				p.getWorld().setWeather(Weathers.CLEAR, 1200*num);
+			}
+		}
+
+		if (this == Deferlement){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_GENERIC_EXPLODE, p.getLocation().getPosition(), 1);
 			Particules.Nuage.effet(p, 200*num);
@@ -70,6 +89,55 @@ public enum Shout {
 				if((e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 4) && e!=p){
 					e.setVelocity(getVelocity(p.getLocation().getPosition(), e.getLocation()).mul(num/ 2 + 1)
 							.mul(1).add(new Vector3d(0, 0.1, 0)));
+				}
+			}
+		}
+
+		if (this == Fendragon){
+			Collection<Entity> near = p.getNearbyEntities(35);
+			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SHOOT, p.getLocation().getPosition(), 1);
+			Particules.Magic_Crit.effet(p, 200*num);
+			for (Entity e : near){
+				if ((e != p) && (e instanceof Player)){
+					Player p2 = (Player) e;
+					if ((p2.get(Keys.IS_FLYING).get()) || (p2.get(Keys.IS_ELYTRA_FLYING).get())){
+						if(p2.getLocation().getPosition().distance(p.getLocation().getPosition()) < ((7*num) - 2)){
+							Particules.Nuage.effet(p2, 100);
+							p2.getWorld().playSound(SoundTypes.ENTITY_GENERIC_EXPLODE, p2.getLocation().getPosition()
+									,1);
+							p2.offer(Keys.IS_FLYING, false);
+							p2.offer(Keys.IS_ELYTRA_FLYING, false);
+							p2.offer(Keys.CAN_FLY, false);
+						}
+					}
+				}
+			}
+		}
+
+		//A reprendre plus tard
+		/*if (this == Impultion){
+			p.setVelocity(Vector3d.FORWARD.project(0,0.4,0));
+			p.getWorld().playSound(SoundTypes.ENTITY_BAT_TAKEOFF, p.getLocation().getPosition(), 1);
+		}*/
+
+		if (this == Ralenti){
+			Collection<Entity> near = p.getNearbyEntities(15);
+			p.getWorld().playSound(SoundTypes.ENTITY_ENDERDRAGON_GROWL, p.getLocation().getPosition(), 1);
+			for (Entity e : near){
+				e.setVelocity(e.getVelocity().mul(1/num*3));
+				if (e instanceof Living){
+					Potions.Lent.effect(e, 600 * num, num - 1);
+				}
+			}
+		}
+
+		if (this == Souffle_Ardent){
+			Collection<Entity> near = p.getNearbyEntities(15);
+			p.getWorld().playSound(SoundTypes.ENTITY_GHAST_SHOOT, p.getLocation().getPosition(), 1);
+			Particules.Flamme.effet(p, 100*num);
+			for (Entity e : near){
+				if((e.getLocation().getPosition().distance(p.getPosition()) < 4) && (e!=p)){
+					e.offer(Keys.FIRE_TICKS, 100*num);
 				}
 			}
 		}
