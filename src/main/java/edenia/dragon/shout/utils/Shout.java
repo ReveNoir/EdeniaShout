@@ -3,20 +3,20 @@ package edenia.dragon.shout.utils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.effect.potion.PotionEffect;
-import org.spongepowered.api.effect.potion.PotionEffectTypes;
 import org.spongepowered.api.effect.sound.SoundTypes;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.Living;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.util.Direction;
+import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.world.Location;
 
 import com.flowpowered.math.vector.Vector3d;
-import org.spongepowered.api.world.weather.Weather;
 import org.spongepowered.api.world.weather.Weathers;
 
 
@@ -72,6 +72,16 @@ public enum Shout {
 	
 	public void shout(final Player p, final int num){
 
+		if (this == Aspect_Draconique){
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
+			p.getWorld().playSound(SoundTypes.ENTITY_ENDERDRAGON_GROWL, p.getLocation().getPosition(), 1);
+			int dur = 300 * num;
+			Potions.Absorbtion.effect(p, dur, 1, potion);
+			Potions.Force.effect(p, dur, 2, potion);
+			Potions.Resistance.effect(p, dur, 3, potion);
+			Particules.Lave.effet(p, 100);
+		}
+
 		if (this == Ciel_Degage){
 			p.getWorld().playSound(SoundTypes.ENTITY_LIGHTNING_THUNDER, p.getLocation().getPosition(), 1);
 			if (num == 3){
@@ -79,6 +89,13 @@ public enum Shout {
 			}else{
 				p.getWorld().setWeather(Weathers.CLEAR, 1200*num);
 			}
+		}
+
+		if (this == Corps_Ethere){
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
+			p.getWorld().playSound(SoundTypes.BLOCK_FIRE_EXTINGUISH, p.getLocation().getPosition(), 1);
+			Potions.Resistance.effect(p, 150*num, 50, potion);
+			Potions.Faiblesse.effect(p, 150*num, 50, potion);
 		}
 
 		if (this == Deferlement){
@@ -92,6 +109,20 @@ public enum Shout {
 				}
 			}
 		}
+
+		//A reprendre plus tard
+		/*if (this == Desarmement){
+			Collection<Entity> near = p.getNearbyEntities(15);
+			p.getWorld().playSound(SoundTypes.BLOCK_ANVIL_LAND, p.getLocation().getPosition(), 1);
+			Particules.Crit.effet(p, 25*num);
+			for (Entity e : near){
+				Player p2 = (Player) e;
+				if ((e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 7) && (e!=p)){
+					Optional<ItemStack> it = p2.getItemInHand(HandTypes.MAIN_HAND);
+					if (it.get().getType() == ItemTypes.AIR){continue;}
+				}
+			}
+		}*/
 
 		if (this == Fendragon){
 			Collection<Entity> near = p.getNearbyEntities(35);
@@ -114,6 +145,27 @@ public enum Shout {
 			}
 		}
 
+		if (this == Furie_Combative){
+			Collection<Entity> near = p.getNearbyEntities(25);
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
+			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
+			for (Entity e : near){
+				Player p2 = (Player) e;
+				if ((p2.isOnline()) && (p2.getLocation().getPosition()
+						.distance(p.getLocation().getPosition()) < num*8) && (p2 != p)){
+					Potions.Minage.effect(p2, num*100, num-1, potion);
+					Potions.Force.effect(p2, num*100, num-1, potion);
+				}
+			}
+		}
+
+		if (this == Furie_Elemental){
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
+			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
+			Potions.Minage.effect(p, num*100, num-1, potion);
+			Potions.Force.effect(p, num*100, num-1, potion);
+		}
+
 		//A reprendre plus tard
 		/*if (this == Impultion){
 			p.setVelocity(Vector3d.FORWARD.project(0,0.4,0));
@@ -121,12 +173,13 @@ public enum Shout {
 		}*/
 
 		if (this == Ralenti){
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_ENDERDRAGON_GROWL, p.getLocation().getPosition(), 1);
 			for (Entity e : near){
 				e.setVelocity(e.getVelocity().mul(1/num*3));
-				if (e instanceof Living){
-					Potions.Lent.effect(e, 600 * num, num - 1);
+				if ((e instanceof Living) && (e!=p)){
+					Potions.Lent.effect(e, 600 * num, num - 1, potion);
 				}
 			}
 		}

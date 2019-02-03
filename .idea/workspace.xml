@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ccfebef-487d-44f3-8b25-ba2a47382f08" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Potions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/listener/Learn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/listener/Learn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Particules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Particules.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Potions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Potions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Shout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Shout.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -76,22 +77,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/command/Command.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="563">
-              <caret line="64" column="42" selection-start-line="64" selection-start-column="42" selection-end-line="64" selection-end-column="42" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Particules.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="37" column="101" selection-start-line="37" selection-start-column="101" selection-end-line="37" selection-end-column="101" />
+            <state relative-caret-position="323">
+              <caret line="28" column="95" lean-forward="true" selection-start-line="28" selection-start-column="95" selection-end-line="28" selection-end-column="95" />
             </state>
           </provider>
         </entry>
@@ -99,21 +88,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Potions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#500#514#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Items.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+            <state relative-caret-position="367">
+              <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -124,10 +100,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Shout.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="91" column="17" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="17" />
+            <state relative-caret-position="1574">
+              <caret line="156" column="69" lean-forward="true" selection-start-line="156" selection-start-column="69" selection-end-line="156" selection-end-column="69" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#2776#2790#0" expanded="true" />
+                <element signature="e#3434#3448#0" expanded="true" />
+                <element signature="e#5594#5608#0" expanded="true" />
+                <element signature="e#5514#5528#0" expanded="true" />
+                <element signature="e#4975#4989#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -151,10 +131,10 @@
         <option value="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/listener/Serial.java" />
         <option value="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Items.java" />
         <option value="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/configuration/ConfigurationManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/listener/Learn.java" />
         <option value="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/Edenia.java" />
         <option value="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/command/Command.java" />
         <option value="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/command/Liste.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/listener/Learn.java" />
         <option value="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Particules.java" />
         <option value="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Potions.java" />
         <option value="$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Shout.java" />
@@ -179,7 +159,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -253,11 +233,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547853780496" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549217040501" />
     <property name="last_opened_file_path" value="F:/IntelIJ/CoursBlaize" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
@@ -315,7 +295,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20516717" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2112462" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -324,7 +304,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.111292966" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.09819967" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -414,19 +394,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/listener/Learn.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Items.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="357">
+          <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
           <folding>
-            <element signature="method#onServerLoad#0;class#Learn#0" />
-            <element signature="method#onPlayerJoin#0;class#Learn#0" />
-            <element signature="method#onPlayerInteract#0;class#Learn#0" />
-            <element signature="e#3393#4924#1" />
-            <element signature="e#4991#5689#1" />
-            <element signature="method#onClickInventory#0;class#Learn#0" />
-            <element signature="method#onRemoveWall#0;class#Learn#0" />
-            <element signature="method#removeItem#0;class#Learn#0" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -448,19 +421,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Items.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/command/Command.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
+        <state relative-caret-position="935">
           <caret line="64" column="42" selection-start-line="64" selection-start-column="42" selection-end-line="64" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -468,30 +431,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/listener/Learn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="69" column="16" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="16" />
+          <folding>
+            <element signature="method#onServerLoad#0;class#Learn#0" />
+            <element signature="method#onPlayerJoin#0;class#Learn#0" />
+            <element signature="method#onPlayerInteract#0;class#Learn#0" />
+            <element signature="e#3370#4927#1" />
+            <element signature="e#5128#5826#1" />
+            <element signature="method#onClickInventory#0;class#Learn#0" />
+            <element signature="method#onRemoveWall#0;class#Learn#0" />
+            <element signature="method#removeItem#0;class#Learn#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Particules.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="37" column="101" selection-start-line="37" selection-start-column="101" selection-end-line="37" selection-end-column="101" />
+        <state relative-caret-position="323">
+          <caret line="28" column="95" lean-forward="true" selection-start-line="28" selection-start-column="95" selection-end-line="28" selection-end-column="95" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Potions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
+        <state relative-caret-position="367">
+          <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#500#514#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edenia/dragon/shout/utils/Shout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="91" column="17" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="17" />
+        <state relative-caret-position="1574">
+          <caret line="156" column="69" lean-forward="true" selection-start-line="156" selection-start-column="69" selection-end-line="156" selection-end-column="69" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2776#2790#0" expanded="true" />
+            <element signature="e#3434#3448#0" expanded="true" />
+            <element signature="e#5594#5608#0" expanded="true" />
+            <element signature="e#5514#5528#0" expanded="true" />
+            <element signature="e#4975#4989#0" expanded="true" />
           </folding>
         </state>
       </provider>
