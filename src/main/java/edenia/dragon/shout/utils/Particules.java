@@ -12,7 +12,8 @@ public enum Particules {
 	Flamme,
 	Lave,
 	Magic_Crit,
-	Nuage;
+	Nuage,
+	Spell_Instant;
 	
 	public String name;
 	Particules(){
@@ -66,6 +67,16 @@ public enum Particules {
 					.build();
 
 			p.spawnParticles(nuage, p.getLocation().getPosition().add(new Vector3d(0, 1, 0)), 10);
+		}
+
+		if(this == Spell_Instant){
+			ParticleEffect si = ParticleEffect.builder()
+					.type(ParticleTypes.INSTANT_SPELL)
+					.quantity(quantite)
+					.offset(Vector3d.ONE.negate())
+					.build();
+
+			p.spawnParticles(si, p.getLocation().getPosition().add(new Vector3d(0, 1, 0)), 10);
 		}
 	}
 }

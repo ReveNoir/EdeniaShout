@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.effect.potion.PotionEffect;
@@ -14,6 +15,8 @@ import org.spongepowered.api.entity.living.Living;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.Location;
 
 import com.flowpowered.math.vector.Vector3d;
@@ -80,6 +83,19 @@ public enum Shout {
 			Potions.Force.effect(p, dur, 2, potion);
 			Potions.Resistance.effect(p, dur, 3, potion);
 			Particules.Lave.effet(p, 100);
+		}
+
+		if (this == Aura_de_Perception){
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
+			p.getWorld().playSound(SoundTypes.ENTITY_ENDERDRAGON_HURT, p.getLocation().getPosition(), 1);
+			for (Player p2 : Sponge.getServer().getOnlinePlayers()){
+				if ((p2.getWorld() == p.getWorld())
+						&& (p2.getLocation().getPosition().distance(p.getPosition()) < 10*num)){
+					if (p2 != p){
+						Potions.Surbrillance.effect(p2, 100*num, num-1, potion);
+					}
+				}else{p.sendMessage(Text.of(TextColors.LIGHT_PURPLE, "[Perception] Aucun joueur a proximite."));}
+			}
 		}
 
 		if (this == Ciel_Degage){
@@ -191,6 +207,22 @@ public enum Shout {
 			for (Entity e : near){
 				if((e.getLocation().getPosition().distance(p.getPosition()) < 4) && (e!=p)){
 					e.offer(Keys.FIRE_TICKS, 100*num);
+				}
+			}
+		}
+
+		if (this == Souffle_Glacee){
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
+			Collection<Entity> near = p.getNearbyEntities(15);
+			p.getWorld().playSound(SoundTypes.BLOCK_GLASS_BREAK, p.getLocation().getPosition(), 1);
+			Particules.Spell_Instant.effet(p, 100*num);
+			for (Entity e : near){
+				if (e instanceof Living){
+					Living le = (Living) e;
+					if ((e.getLocation().getPosition().distance(p.getPosition()) <= 4) && (e != p)){
+						Potions.Lent.effect(le, 50*num, num-1, potion);
+						Potions.Wither.effect(le, 20*num, num-1, potion);
+					}
 				}
 			}
 		}

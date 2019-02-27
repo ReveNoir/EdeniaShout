@@ -15,7 +15,9 @@ public enum Potions {
     Force,
     Lent,
     Minage,
-    Resistance;
+    Resistance,
+    Surbrillance,
+    Wither;
 
     public String name;
     Potions(){this.name = name();}
@@ -74,6 +76,24 @@ public enum Potions {
                     .amplifier(puissance)
                     .build();
             potion.add(resist);
+        }
+
+        if (this == Surbrillance){
+            PotionEffect surbri = PotionEffect.builder()
+                    .potionType(PotionEffectTypes.GLOWING)
+                    .duration(dure)
+                    .amplifier(puissance)
+                    .build();
+            potion.add(surbri);
+        }
+
+        if (this == Wither){
+            PotionEffect wither = PotionEffect.builder()
+                    .potionType(PotionEffectTypes.WITHER)
+                    .duration(dure)
+                    .amplifier(puissance)
+                    .build();
+            potion.add(wither);
         }
 
         e.offer(Keys.POTION_EFFECTS, potion);
