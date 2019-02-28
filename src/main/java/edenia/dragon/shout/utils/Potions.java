@@ -12,9 +12,11 @@ public enum Potions {
 
     Absorbtion,
     Faiblesse,
+    Faim,
     Force,
     Lent,
     Minage,
+    Regeneration,
     Resistance,
     Surbrillance,
     Wither;
@@ -42,6 +44,15 @@ public enum Potions {
             potion.add(faible);
         }
 
+        if (this == Faim){
+            PotionEffect faim = PotionEffect.builder()
+                    .potionType(PotionEffectTypes.HUNGER)
+                    .duration(dure)
+                    .amplifier(puissance)
+                    .build();
+            potion.add(faim);
+        }
+
         if (this == Force){
             PotionEffect force = PotionEffect.builder()
                     .potionType(PotionEffectTypes.STRENGTH)
@@ -67,6 +78,15 @@ public enum Potions {
                     .amplifier(puissance)
                     .build();
             potion.add(minage);
+        }
+
+        if (this == Regeneration){
+            PotionEffect regen = PotionEffect.builder()
+                    .potionType(PotionEffectTypes.REGENERATION)
+                    .duration(dure)
+                    .amplifier(puissance)
+                    .build();
+            potion.add(regen);
         }
 
         if (this == Resistance){

@@ -13,6 +13,7 @@ public enum Particules {
 	Lave,
 	Magic_Crit,
 	Nuage,
+	Portail,
 	Spell_Instant;
 	
 	public String name;
@@ -67,6 +68,16 @@ public enum Particules {
 					.build();
 
 			p.spawnParticles(nuage, p.getLocation().getPosition().add(new Vector3d(0, 1, 0)), 10);
+		}
+
+		if (this == Portail){
+			ParticleEffect port = ParticleEffect.builder()
+					.type(ParticleTypes.PORTAL)
+					.quantity(quantite)
+					.offset(Vector3d.ONE.negate())
+					.build();
+
+			p.spawnParticles(port, p.getLocation().getPosition().add(new Vector3d(0, 1, 0)), 10);
 		}
 
 		if(this == Spell_Instant){

@@ -114,6 +114,19 @@ public enum Shout {
 			Potions.Faiblesse.effect(p, 150*num, 50, potion);
 		}
 
+		if (this == Cri_de_Glace){
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
+			Collection<Entity> near = p.getNearbyEntities(15);
+			p.getWorld().playSound(SoundTypes.BLOCK_GLASS_BREAK, p.getLocation().getPosition(), 1);
+			for (Entity e : near){
+				Particules.Spell_Instant.effet(p, 35*num);
+				Living le = (Living) e;
+				if ((e.getLocation().getPosition().distance(p.getPosition()) < 4) && (le!=p)){
+					Potions.Lent.effect(le, 60*num, 25, potion);
+				}
+			}
+		}
+
 		if (this == Deferlement){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_GENERIC_EXPLODE, p.getLocation().getPosition(), 1);
@@ -187,6 +200,25 @@ public enum Shout {
 			p.setVelocity(Vector3d.FORWARD.project(0,0.4,0));
 			p.getWorld().playSound(SoundTypes.ENTITY_BAT_TAKEOFF, p.getLocation().getPosition(), 1);
 		}*/
+
+		if (this == Ponction_de_Vitalite){
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
+			List<PotionEffect> potion1 = new ArrayList<PotionEffect>();
+			Collection<Entity> near = p.getNearbyEntities(15);
+			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
+			for (Entity e : near){
+				if (e instanceof Player){
+					Player p2 = (Player) e;
+					if ((e.getLocation().getPosition().distance(p.getPosition()) < 7) && (e!=p)){
+						Potions.Faim.effect(p2, 20*num, num*4, potion);
+						if (num > 1){
+							Potions.Wither.effect(p2, 20*num, num*3, potion);
+							Potions.Regeneration.effect(p, 20*num, num, potion1);
+						}
+					}
+				}
+			}
+		}
 
 		if (this == Ralenti){
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
