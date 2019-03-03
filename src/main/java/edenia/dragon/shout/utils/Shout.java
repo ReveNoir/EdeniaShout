@@ -11,8 +11,11 @@ import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.effect.potion.PotionEffect;
 import org.spongepowered.api.effect.sound.SoundTypes;
 import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.entity.living.Living;
+import org.spongepowered.api.entity.living.animal.Wolf;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.cause.entity.damage.source.DamageSources;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
@@ -26,7 +29,7 @@ import org.spongepowered.api.world.weather.Weathers;
 public enum Shout {
 	
 	Allegeance_Animale("Raan", "Mir", "Tah", 50, 60, 70),
-	Allie_Draconique("OD", "Ah", "Ving", 5, 5, 300),
+	Allie_Draconique("Od", "Ah", "Ving", 5, 5, 300),
 	Allie_Heroique("Hun", "Kaal", "Zoor", 5, 5, 180),
 	Aspect_Draconique("Mul", "Qah", "Diiv", 50, 100, 150),
 	Asservissement("Gol", "Hah", "Dov", 10, 90, 120),
@@ -74,6 +77,19 @@ public enum Shout {
 	}
 	
 	public void shout(final Player p, final int num){
+
+		if (this == Allie_Heroique){
+			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
+			for (int i = 0; i < num; i++){
+				Entity w = p.getWorld().createEntity(EntityTypes.WOLF, p.getLocation().getPosition());
+				w.offer(Keys.DISPLAY_NAME, Text.of("Invocation de ", p.getName()));
+				w.offer(Keys.CUSTOM_NAME_VISIBLE, true);
+				w.offer(Keys.HEALTH, 30.0);
+				w.setCreator(p.getUniqueId());
+				p.getLocation().spawnEntity(w);
+
+			}
+		}
 
 		if (this == Aspect_Draconique){
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
@@ -201,6 +217,38 @@ public enum Shout {
 			p.getWorld().playSound(SoundTypes.ENTITY_BAT_TAKEOFF, p.getLocation().getPosition(), 1);
 		}*/
 
+		if (this == Laceration_d_Ame){
+			Collection<Entity> near = p.getNearbyEntities(15);
+			p.getWorld().playSound(SoundTypes.ENTITY_IRONGOLEM_ATTACK, p.getLocation().getPosition(),1);
+			if (num > 2){
+				Particules.Mob_spell.effet(p, num*15);
+				for (Entity e : near){
+					if (e instanceof Player){
+						Player p2 = (Player) e;
+						if ((e.getLocation().getPosition().distance(p.getPosition()) < 7) && (e!=p)){
+							p2.damage(10, DamageSources.GENERIC);
+						}
+					}
+				}
+			}
+		}
+
+		if (this == Marque_Mortelle){
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
+			Collection<Entity> near = p.getNearbyEntities(15);
+			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_HURT, p.getLocation().getPosition(), 1);
+			for (Entity e : near){
+				Particules.Fumer_large.effet(p, num*15);
+				if (e instanceof Player){
+					Player p2 = (Player) e;
+					if ((e.getLocation().getPosition().distance(p.getPosition()) < 7) && (e!=p)){
+						Potions.Resistance.effect(p2, 120*num, num*2, potion);
+						Potions.Wither.effect(p2, 20*num, num-1, potion);
+					}
+				}
+			}
+		}
+
 		if (this == Ponction_de_Vitalite){
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			List<PotionEffect> potion1 = new ArrayList<PotionEffect>();
@@ -255,6 +303,16 @@ public enum Shout {
 						Potions.Lent.effect(le, 50*num, num-1, potion);
 						Potions.Wither.effect(le, 20*num, num-1, potion);
 					}
+				}
+			}
+		}
+
+		if (this == Telekinesie){
+			for (Player p2 : Sponge.getServer().getOnlinePlayers()){
+				if ((p2.getWorld() == p.getWorld())
+						&& (p2.getLocation().getPosition().distance(p.getPosition()) < num*30) && (p2!=p)){
+					p2.getWorld().playSound(SoundTypes.ENTITY_ENDERDRAGON_GROWL,
+							p2.getLocation().getPosition(), num, 10);
 				}
 			}
 		}
