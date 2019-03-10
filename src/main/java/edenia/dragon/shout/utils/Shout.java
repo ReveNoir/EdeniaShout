@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import com.flowpowered.math.imaginary.Quaterniond;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.data.key.Keys;
@@ -21,6 +22,7 @@ import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.util.rotation.Rotations;
 import org.spongepowered.api.world.Location;
 
 import com.flowpowered.math.vector.Vector3d;
@@ -227,13 +229,12 @@ public enum Shout {
 		}
 
 		//A reprendre plus tard
-		/*if (this == Impultion){
-			e.setVelocity(getVelocity(p.getLocation().getPosition(), e.getLocation()).mul(num/ 2 + 1)
-					.mul(1).add(new Vector3d(0, 0.1, 0)));
-			Vector3d dir = Vector3d.createDirectionDeg(p.getHeadRotation().getX(), p.getHeadRotation().getY());
-			p.sendMessage(Text.of(dir));
+		if (this == Impultion){
+			final Vector3d direction = Quaterniond.fromAxesAnglesDeg(p.getHeadRotation().getX(),
+					-p.getHeadRotation().getY(), p.getHeadRotation().getZ()).getDirection();
+			p.setVelocity(direction.mul((num*2)+3));
 			p.getWorld().playSound(SoundTypes.ENTITY_BAT_TAKEOFF, p.getLocation().getPosition(), 1);
-		}*/
+		}
 
 		if (this == Laceration_d_Ame){
 			Collection<Entity> near = p.getNearbyEntities(15);
@@ -331,6 +332,24 @@ public enum Shout {
 						&& (p2.getLocation().getPosition().distance(p.getPosition()) < num*30) && (p2!=p)){
 					p2.getWorld().playSound(SoundTypes.ENTITY_ENDERDRAGON_GROWL,
 							p2.getLocation().getPosition(), num, 10);
+				}
+			}
+		}
+
+		if (this == Tourmente){
+			if (num == 3){p.getWorld().setWeather(Weathers.THUNDER_STORM);}
+			else {p.getWorld().setWeather(Weathers.THUNDER_STORM, 600*num);}
+
+			for (Player p2 : Sponge.getServer().getOnlinePlayers()){
+				if ((p2!=p) && (p2.getLocation().getPosition().distance(p.getPosition()) <= num*25)){
+					for (int i = 0; i < num; i++){
+						Entity ligthning = p2.getWorld().createEntity(EntityTypes.LIGHTNING, p2.getLocation().getPosition());
+						p2.getLocation().spawnEntity(ligthning);
+					}
+
+					if (p2.getLocation().getPosition().distance(p.getPosition()) <= 10){
+						p2.offer(Keys.FIRE_TICKS, 100*num);
+					}
 				}
 			}
 		}
