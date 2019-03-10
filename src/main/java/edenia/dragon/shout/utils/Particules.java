@@ -9,6 +9,7 @@ import com.flowpowered.math.vector.Vector3d;
 public enum Particules {
 
 	Crit,
+	Explosion,
 	Flamme,
 	Fumer_large,
 	Lave,
@@ -31,6 +32,16 @@ public enum Particules {
 					.offset(Vector3d.ONE.negate())
 					.build();
 			p.spawnParticles(crit, p.getLocation().getPosition().add(new Vector3d(0,1,0)), 10);
+		}
+
+		if (this == Explosion){
+			ParticleEffect explo = ParticleEffect.builder()
+					.type(ParticleTypes.LARGE_EXPLOSION)
+					.quantity(quantite)
+					.offset(Vector3d.ONE.negate())
+					.build();
+
+			p.spawnParticles(explo, p.getLocation().getPosition().add(new Vector3d(0,1,0)), 10);
 		}
 
 		if(this == Flamme){

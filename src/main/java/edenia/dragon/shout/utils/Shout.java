@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.effect.potion.PotionEffect;
@@ -143,6 +144,20 @@ public enum Shout {
 			}
 		}
 
+		if (this == Cyclone){
+			Collection<Entity> near = p.getNearbyEntities(15);
+			p.getWorld().playSound(SoundTypes.ENTITY_FIREWORK_LARGE_BLAST, p.getLocation().getPosition(), 1);
+			for (Entity e : near){
+				if ((e.getLocation().getPosition().distance(p.getPosition()) < 4) && (e!=p)){
+					Particules.Explosion.effet(p, num*10);
+					if (e instanceof Living){
+						e.damage(num*3, DamageSources.GENERIC);
+					}
+					e.setVelocity(new Vector3d(0,num,0));
+				}
+			}
+		}
+
 		if (this == Deferlement){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_GENERIC_EXPLODE, p.getLocation().getPosition(), 1);
@@ -213,7 +228,10 @@ public enum Shout {
 
 		//A reprendre plus tard
 		/*if (this == Impultion){
-			p.setVelocity(Vector3d.FORWARD.project(0,0.4,0));
+			e.setVelocity(getVelocity(p.getLocation().getPosition(), e.getLocation()).mul(num/ 2 + 1)
+					.mul(1).add(new Vector3d(0, 0.1, 0)));
+			Vector3d dir = Vector3d.createDirectionDeg(p.getHeadRotation().getX(), p.getHeadRotation().getY());
+			p.sendMessage(Text.of(dir));
 			p.getWorld().playSound(SoundTypes.ENTITY_BAT_TAKEOFF, p.getLocation().getPosition(), 1);
 		}*/
 
