@@ -14,9 +14,13 @@ import org.spongepowered.api.effect.potion.PotionEffect;
 import org.spongepowered.api.effect.sound.SoundTypes;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntityTypes;
+import org.spongepowered.api.entity.Item;
 import org.spongepowered.api.entity.living.Living;
 import org.spongepowered.api.entity.living.animal.Wolf;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.cause.EventContext;
+import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSources;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
@@ -179,9 +183,12 @@ public enum Shout {
 			Particules.Crit.effet(p, 25*num);
 			for (Entity e : near){
 				Player p2 = (Player) e;
-				if ((e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 7) && (e!=p)){
-					Optional<ItemStack> it = p2.getItemInHand(HandTypes.MAIN_HAND);
-					if (it.get().getType() == ItemTypes.AIR){continue;}
+				if (e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 7) && (e!=p)){
+					ItemStack it = p2.getItemInHand(HandTypes.MAIN_HAND).get();
+					if (it.getType() == ItemTypes.AIR){continue;}
+					Entity itHand = p2.getWorld().createEntity(EntityTypes.ITEM, p2.getLocation().getPosition());
+					itHand.offer(Keys.REPRESENTED_ITEM, it.createSnapshot());
+					p2.getLocation().getExtent().spawnEntity(itHand);
 				}
 			}
 		}*/
@@ -228,7 +235,6 @@ public enum Shout {
 			Potions.Force.effect(p, num*100, num-1, potion);
 		}
 
-		//A reprendre plus tard
 		if (this == Impultion){
 			final Vector3d direction = Quaterniond.fromAxesAnglesDeg(p.getHeadRotation().getX(),
 					-p.getHeadRotation().getY(), p.getHeadRotation().getZ()).getDirection();
