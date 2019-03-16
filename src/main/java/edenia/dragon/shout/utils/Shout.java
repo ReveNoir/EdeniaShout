@@ -174,7 +174,8 @@ public enum Shout {
 				}
 			}
 		}
-		
+
+		//New
 		if (this == Desarmement){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.BLOCK_ANVIL_LAND, p.getLocation().getPosition(), 1);
