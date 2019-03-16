@@ -19,8 +19,6 @@ import org.spongepowered.api.entity.living.Living;
 import org.spongepowered.api.entity.living.animal.Wolf;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.EventContext;
-import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSources;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
@@ -30,6 +28,7 @@ import org.spongepowered.api.util.rotation.Rotations;
 import org.spongepowered.api.world.Location;
 
 import com.flowpowered.math.vector.Vector3d;
+import org.spongepowered.api.world.World;
 import org.spongepowered.api.world.weather.Weathers;
 
 
@@ -175,23 +174,27 @@ public enum Shout {
 				}
 			}
 		}
-
-		//A reprendre plus tard
-		/*if (this == Desarmement){
+		
+		if (this == Desarmement){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.BLOCK_ANVIL_LAND, p.getLocation().getPosition(), 1);
 			Particules.Crit.effet(p, 25*num);
 			for (Entity e : near){
 				Player p2 = (Player) e;
-				if (e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 7) && (e!=p)){
-					ItemStack it = p2.getItemInHand(HandTypes.MAIN_HAND).get();
-					if (it.getType() == ItemTypes.AIR){continue;}
-					Entity itHand = p2.getWorld().createEntity(EntityTypes.ITEM, p2.getLocation().getPosition());
-					itHand.offer(Keys.REPRESENTED_ITEM, it.createSnapshot());
-					p2.getLocation().getExtent().spawnEntity(itHand);
+				if ((e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 7) && (e!=p)){
+					Location<World> loc = p2.getLocation()
+							.add(Quaterniond.fromAxesAnglesDeg(p.getHeadRotation().getX(),
+							-p.getHeadRotation().getY(), p.getHeadRotation().getZ()).getDirection().mul(num*2));
+					ItemStack stack = p2.getItemInHand(HandTypes.MAIN_HAND).get();
+					Entity optItem = loc.createEntity(EntityTypes.ITEM);
+					Item item = (Item) optItem;
+					item.offer(Keys.REPRESENTED_ITEM, stack.createSnapshot());
+					loc.spawnEntity(item);
+
+					p2.setItemInHand(HandTypes.MAIN_HAND, null);
 				}
 			}
-		}*/
+		}
 
 		if (this == Fendragon){
 			Collection<Entity> near = p.getNearbyEntities(35);
