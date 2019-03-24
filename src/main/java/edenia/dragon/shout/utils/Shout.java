@@ -3,11 +3,9 @@ package edenia.dragon.shout.utils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 import com.flowpowered.math.imaginary.Quaterniond;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.effect.potion.PotionEffect;
@@ -16,15 +14,11 @@ import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.entity.Item;
 import org.spongepowered.api.entity.living.Living;
-import org.spongepowered.api.entity.living.animal.Wolf;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSources;
-import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.util.rotation.Rotations;
 import org.spongepowered.api.world.Location;
 
 import com.flowpowered.math.vector.Vector3d;
@@ -84,16 +78,44 @@ public enum Shout {
 	
 	public void shout(final Player p, final int num){
 
-		if (this == Allie_Heroique){
+		if (this == Allegeance_Animale){
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
 			for (int i = 0; i < num; i++){
 				Entity w = p.getWorld().createEntity(EntityTypes.WOLF, p.getLocation().getPosition());
 				w.offer(Keys.DISPLAY_NAME, Text.of("Invocation de ", p.getName()));
 				w.offer(Keys.CUSTOM_NAME_VISIBLE, true);
 				w.offer(Keys.HEALTH, 30.0);
+				w.offer(Keys.ANGRY, true);
 				w.setCreator(p.getUniqueId());
 				p.getLocation().spawnEntity(w);
+				Potions.Force.effect(w, 100000, 1, potion);
+				for (int j = 0; j <= num*100; j++){
+					if (j == num*100){
+						w.offer(Keys.HEALTH, 0.0);
+					}
+				}
+			}
+		}
 
+		if (this == Allie_Heroique){
+			List<PotionEffect> potion = new ArrayList<PotionEffect>();
+			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
+			for (int i = 0; i < num+1; i++){
+				Entity s = p.getWorld().createEntity(EntityTypes.SKELETON, p.getLocation().getPosition());
+				s.offer(Keys.DISPLAY_NAME, Text.of("Guerrier de ", p.getName()));
+				s.offer(Keys.CUSTOM_NAME_VISIBLE, true);
+				s.offer(Keys.HEALTH, 50.0);
+				s.offer(Keys.ANGRY, true);
+				s.setCreator(p.getUniqueId());
+				p.getLocation().spawnEntity(s);
+				Potions.Force.effect(s, 100000, 1, potion);
+				Potions.Resistance.effect(s, 100000, 1, potion);
+				for (int j = 0; j <= num*100; j++){
+					if (j == num*100){
+						s.offer(Keys.HEALTH, 0.0);
+					}
+				}
 			}
 		}
 
@@ -175,7 +197,6 @@ public enum Shout {
 			}
 		}
 
-		//New
 		if (this == Desarmement){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.BLOCK_ANVIL_LAND, p.getLocation().getPosition(), 1);
