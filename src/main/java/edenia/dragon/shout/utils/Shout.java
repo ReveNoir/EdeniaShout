@@ -82,7 +82,9 @@ public enum Shout {
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
 			for (int i = 0; i < num; i++){
+				Particules.Mob_spell.effet(p, num*35);
 				Entity w = p.getWorld().createEntity(EntityTypes.WOLF, p.getLocation().getPosition());
+
 				w.offer(Keys.DISPLAY_NAME, Text.of("Invocation de ", p.getName()));
 				w.offer(Keys.CUSTOM_NAME_VISIBLE, true);
 				w.offer(Keys.HEALTH, 30.0);
@@ -90,6 +92,7 @@ public enum Shout {
 				w.setCreator(p.getUniqueId());
 				p.getLocation().spawnEntity(w);
 				Potions.Force.effect(w, 100000, 1, potion);
+
 				for (int j = 0; j <= num*100; j++){
 					if (j == num*100){
 						w.offer(Keys.HEALTH, 0.0);
@@ -102,7 +105,9 @@ public enum Shout {
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
 			for (int i = 0; i < num+1; i++){
+				Particules.Lave.effet(p, num*35);
 				Entity s = p.getWorld().createEntity(EntityTypes.SKELETON, p.getLocation().getPosition());
+
 				s.offer(Keys.DISPLAY_NAME, Text.of("Guerrier de ", p.getName()));
 				s.offer(Keys.CUSTOM_NAME_VISIBLE, true);
 				s.offer(Keys.HEALTH, 50.0);
@@ -111,6 +116,7 @@ public enum Shout {
 				p.getLocation().spawnEntity(s);
 				Potions.Force.effect(s, 100000, 1, potion);
 				Potions.Resistance.effect(s, 100000, 1, potion);
+
 				for (int j = 0; j <= num*100; j++){
 					if (j == num*100){
 						s.offer(Keys.HEALTH, 0.0);
