@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.flowpowered.math.imaginary.Quaterniond;
+import org.spongepowered.api.Server;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.HandTypes;
@@ -29,10 +30,10 @@ import org.spongepowered.api.world.weather.Weathers;
 public enum Shout {
 	
 	Allegeance_Animale("Raan", "Mir", "Tah", 50, 60, 70),
-	Allie_Draconique("Od", "Ah", "Ving", 5, 5, 300),
+	Allie_Draconique("Od", "Ah", "Ving", 5, 5, 300), //A faire
 	Allie_Heroique("Hun", "Kaal", "Zoor", 5, 5, 180),
 	Aspect_Draconique("Mul", "Qah", "Diiv", 50, 100, 150),
-	Asservissement("Gol", "Hah", "Dov", 10, 90, 120),
+	Asservissement("Gol", "Hah", "Dov", 10, 90, 120), //A faire
 	Aura_de_Perception("Laas", "Yah", "Nir", 30, 40, 50),
 	Ciel_Degage("Lok", "Vah", "Koor", 5, 10, 15),
 	Corps_Ethere("Feim", "Zii", "Gron", 20, 30, 40),
@@ -44,11 +45,11 @@ public enum Shout {
 	Furie_Combative("Mid", "Vur", "Shaan", 20, 30, 40),
 	Furie_Elemental("Su", "Grah", "Dun", 30, 40, 50),
 	Impultion("Wuld", "Nah", "Kest", 20, 25, 35),
-	Intimidation("Faas", "Ru", "Maar", 40, 45, 50),
-	Invocation_de_Durnehviir("Dur", "Neh", "Viir", 5, 5, 300),
+	Intimidation("Faas", "Ru", "Maar", 40, 45, 50), //A faire
+	Invocation_de_Durnehviir("Dur", "Neh", "Viir", 5, 5, 300), //A faire
 	Laceration_d_Ame("Rii", "Vaaz", "Zol", 5, 5, 90),
 	Marque_Mortelle("Krii", "Lun", "Aus", 20, 30, 40),
-	Paix_de_Kyne("Kaan", "Drem", "Ov", 40, 50, 60),
+	Paix_de_Kyne("Kaan", "Drem", "Ov", 40, 50, 60), //A faire
 	Ponction_de_Vitalite("Gaan", "Lah", "Haas", 30, 60, 90),
 	Ralenti("Tiid", "Klo", "Ul", 30, 45, 60),
 	Souffle_Ardent("Yol", "Toor", "Shul", 30, 50, 100),
@@ -98,6 +99,24 @@ public enum Shout {
 						w.offer(Keys.HEALTH, 0.0);
 					}
 				}
+			}
+		}
+
+		if (this == Allie_Draconique){
+			if (num == 1){
+				Sponge.getCommandManager().process(Sponge.getServer().getConsole()
+						, "noppes clone spawn dragon1 1 "+p.getPosition().getX()+","
+								+(p.getPosition().getY()+20)+","+p.getPosition().getZ());
+			}
+			if (num == 2){
+				Sponge.getCommandManager().process(Sponge.getServer().getConsole()
+						, "noppes clone spawn dragon2 1 "+p.getPosition().getX()+","
+								+(p.getPosition().getY()+20)+","+p.getPosition().getZ());
+			}
+			if (num == 3){
+				Sponge.getCommandManager().process(Sponge.getServer().getConsole()
+						, "noppes clone spawn dragon3 1 "+p.getPosition().getX()+","
+								+(p.getPosition().getY()+20)+","+p.getPosition().getZ());
 			}
 		}
 
