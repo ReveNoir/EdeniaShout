@@ -3,9 +3,10 @@ package edenia.dragon.shout.utils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.flowpowered.math.imaginary.Quaterniond;
-import org.spongepowered.api.Server;
+import edenia.dragon.shout.Edenia;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.HandTypes;
@@ -15,9 +16,13 @@ import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.entity.Item;
 import org.spongepowered.api.entity.living.Living;
+import org.spongepowered.api.entity.living.monster.Monster;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSources;
 import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.plugin.PluginManager;
+import org.spongepowered.api.scheduler.Scheduler;
+import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.Location;
@@ -26,11 +31,13 @@ import com.flowpowered.math.vector.Vector3d;
 import org.spongepowered.api.world.World;
 import org.spongepowered.api.world.weather.Weathers;
 
+import javax.inject.Inject;
+
 
 public enum Shout {
 	
-	Allegeance_Animale("Raan", "Mir", "Tah", 50, 60, 70),
-	Allie_Draconique("Od", "Ah", "Ving", 5, 5, 300), //A faire
+	Allegeance_Animale("Raan", "Mir", "Tah", 50, 60, 70), //A reprendre
+	Allie_Draconique("Od", "Ah", "Ving", 5, 5, 300),
 	Allie_Heroique("Hun", "Kaal", "Zoor", 5, 5, 180),
 	Aspect_Draconique("Mul", "Qah", "Diiv", 50, 100, 150),
 	Asservissement("Gol", "Hah", "Dov", 10, 90, 120), //A faire
@@ -46,10 +53,8 @@ public enum Shout {
 	Furie_Elemental("Su", "Grah", "Dun", 30, 40, 50),
 	Impultion("Wuld", "Nah", "Kest", 20, 25, 35),
 	Intimidation("Faas", "Ru", "Maar", 40, 45, 50), //A faire
-	Invocation_de_Durnehviir("Dur", "Neh", "Viir", 5, 5, 300), //A faire
 	Laceration_d_Ame("Rii", "Vaaz", "Zol", 5, 5, 90),
 	Marque_Mortelle("Krii", "Lun", "Aus", 20, 30, 40),
-	Paix_de_Kyne("Kaan", "Drem", "Ov", 40, 50, 60), //A faire
 	Ponction_de_Vitalite("Gaan", "Lah", "Haas", 30, 60, 90),
 	Ralenti("Tiid", "Klo", "Ul", 30, 45, 60),
 	Souffle_Ardent("Yol", "Toor", "Shul", 30, 50, 100),
@@ -59,6 +64,13 @@ public enum Shout {
 	
 	public String name, m1, m2, m3;
 	public int c1, c2, c3;
+	private ArrayList<Monster> kps = new ArrayList<>();
+	private Scheduler sch = Sponge.getScheduler();
+	private Task.Builder taskB = sch.createTaskBuilder();
+
+	@Inject
+	private PluginManager plug;
+
 	
 	@SuppressWarnings("rawtypes")
 	public static Vector3d getVelocity(Vector3d c, Location f) {
@@ -75,10 +87,12 @@ public enum Shout {
 		this.c1 = cool1;
 		this.c2 = cool2;
 		this.c3 = cool3;
+
 	}
-	
+
 	public void shout(final Player p, final int num){
 
+		//A reprendre
 		if (this == Allegeance_Animale){
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
@@ -94,8 +108,13 @@ public enum Shout {
 				p.getLocation().spawnEntity(w);
 				Potions.Force.effect(w, 100000, 1, potion);
 
-				for (int j = 0; j <= num*100; j++){
-					if (j == num*100){
+				for (int j = 0; j <= num*30; j++){
+					p.sendMessage(Text.of(TextColors.GREEN, j));
+					try{
+						wait(1000);
+					}catch (InterruptedException e){}
+
+					if (j == 30){
 						w.offer(Keys.HEALTH, 0.0);
 					}
 				}
@@ -135,12 +154,6 @@ public enum Shout {
 				p.getLocation().spawnEntity(s);
 				Potions.Force.effect(s, 100000, 1, potion);
 				Potions.Resistance.effect(s, 100000, 1, potion);
-
-				for (int j = 0; j <= num*100; j++){
-					if (j == num*100){
-						s.offer(Keys.HEALTH, 0.0);
-					}
-				}
 			}
 		}
 
@@ -227,19 +240,22 @@ public enum Shout {
 			p.getWorld().playSound(SoundTypes.BLOCK_ANVIL_LAND, p.getLocation().getPosition(), 1);
 			Particules.Crit.effet(p, 25*num);
 			for (Entity e : near){
-				Player p2 = (Player) e;
-				if ((e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 7) && (e!=p)){
-					Location<World> loc = p2.getLocation()
-							.add(Quaterniond.fromAxesAnglesDeg(p.getHeadRotation().getX(),
-							-p.getHeadRotation().getY(), p.getHeadRotation().getZ()).getDirection().mul(num*2));
-					ItemStack stack = p2.getItemInHand(HandTypes.MAIN_HAND).get();
-					Entity optItem = loc.createEntity(EntityTypes.ITEM);
-					Item item = (Item) optItem;
-					item.offer(Keys.REPRESENTED_ITEM, stack.createSnapshot());
-					loc.spawnEntity(item);
+				if (e instanceof Player){
+					Player p2 = (Player) e;
+					if ((e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 7) && (e!=p)){
+						Location<World> loc = p2.getLocation()
+								.add(Quaterniond.fromAxesAnglesDeg(p.getHeadRotation().getX(),
+										-p.getHeadRotation().getY(), p.getHeadRotation().getZ()).getDirection().mul(num*2));
+						ItemStack stack = p2.getItemInHand(HandTypes.MAIN_HAND).get();
+						Entity optItem = loc.createEntity(EntityTypes.ITEM);
+						Item item = (Item) optItem;
+						item.offer(Keys.REPRESENTED_ITEM, stack.createSnapshot());
+						loc.spawnEntity(item);
 
-					p2.setItemInHand(HandTypes.MAIN_HAND, null);
+						p2.setItemInHand(HandTypes.MAIN_HAND, null);
+					}
 				}
+
 			}
 		}
 
@@ -269,11 +285,13 @@ public enum Shout {
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
 			for (Entity e : near){
-				Player p2 = (Player) e;
-				if ((p2.isOnline()) && (p2.getLocation().getPosition()
-						.distance(p.getLocation().getPosition()) < num*8) && (p2 != p)){
-					Potions.Minage.effect(p2, num*100, num-1, potion);
-					Potions.Force.effect(p2, num*100, num-1, potion);
+				if (e instanceof Player){
+					Player p2 = (Player) e;
+					if ((p2.isOnline()) && (p2.getLocation().getPosition()
+							.distance(p.getLocation().getPosition()) < num*8) && (p2 != p)){
+						Potions.Minage.effect(p2, num*100, num-1, potion);
+						Potions.Force.effect(p2, num*100, num-1, potion);
+					}
 				}
 			}
 		}
@@ -290,6 +308,31 @@ public enum Shout {
 					-p.getHeadRotation().getY(), p.getHeadRotation().getZ()).getDirection();
 			p.setVelocity(direction.mul((num*2)+3));
 			p.getWorld().playSound(SoundTypes.ENTITY_BAT_TAKEOFF, p.getLocation().getPosition(), 1);
+		}
+
+		if (this == Intimidation){
+			Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
+					"setblock "+p.getPosition().getX()+
+							" "+(p.getPosition().getY()-2)+
+							" "+p.getPosition().getZ()+
+							" minecraft:command_block 0 replace {Command:\"/effect @p minecraft:night_vision 10 1\"}");
+			Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
+					"setblock "+(p.getPosition().getX()+1)+
+							" "+(p.getPosition().getY()-2)+
+							" "+p.getPosition().getZ()+
+							" minecraft:redstone_block");
+
+			//Partie a faire après un délai de quelques secondes.
+			/*Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
+						"setblock "+(p.getPosition().getX()+1)+
+								" "+(p.getPosition().getY()-2)+
+								" "+p.getPosition().getZ()+
+								" minecraft:air");
+			Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
+						"setblock "+p.getPosition().getX()+
+								" "+(p.getPosition().getY()-2)+
+								" "+p.getPosition().getZ()+
+								" minecraft:air");*/
 		}
 
 		if (this == Laceration_d_Ame){
