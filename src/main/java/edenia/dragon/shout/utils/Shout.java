@@ -323,16 +323,23 @@ public enum Shout {
 							" minecraft:redstone_block");
 
 			//Partie a faire après un délai de quelques secondes.
-			/*Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
-						"setblock "+(p.getPosition().getX()+1)+
-								" "+(p.getPosition().getY()-2)+
-								" "+p.getPosition().getZ()+
-								" minecraft:air");
-			Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
-						"setblock "+p.getPosition().getX()+
-								" "+(p.getPosition().getY()-2)+
-								" "+p.getPosition().getZ()+
-								" minecraft:air");*/
+			/*taskB.execute(new Runnable() {
+				@Override
+				public void run() {
+					Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
+								"setblock "+(p.getPosition().getX()+1)+
+										" "+(p.getPosition().getY()-2)+
+										" "+p.getPosition().getZ()+
+										" minecraft:air");
+					Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
+								"setblock "+p.getPosition().getX()+
+										" "+(p.getPosition().getY()-2)+
+										" "+p.getPosition().getZ()+
+										" minecraft:air");
+				}
+			}).delay(3, TimeUnit.SECONDS).submit(this);*/
+
+
 		}
 
 		if (this == Laceration_d_Ame){
