@@ -38,7 +38,7 @@ public enum Shout {
 	
 	Allegeance_Animale("Raan", "Mir", "Tah", 50, 60, 70), //A reprendre
 	Allie_Draconique("Od", "Ah", "Ving", 5, 5, 300),
-	Allie_Heroique("Hun", "Kaal", "Zoor", 5, 5, 180),
+	Allie_Heroique("Hun", "Kaal", "Zoor", 5, 5, 180), //A reprendre
 	Aspect_Draconique("Mul", "Qah", "Diiv", 50, 100, 150),
 	Asservissement("Gol", "Hah", "Dov", 10, 90, 120), //A faire
 	Aura_de_Perception("Laas", "Yah", "Nir", 30, 40, 50),
@@ -52,7 +52,7 @@ public enum Shout {
 	Furie_Combative("Mid", "Vur", "Shaan", 20, 30, 40),
 	Furie_Elemental("Su", "Grah", "Dun", 30, 40, 50),
 	Impultion("Wuld", "Nah", "Kest", 20, 25, 35),
-	Intimidation("Faas", "Ru", "Maar", 40, 45, 50), //A faire
+	Intimidation("Faas", "Ru", "Maar", 40, 45, 50),
 	Laceration_d_Ame("Rii", "Vaaz", "Zol", 5, 5, 90),
 	Marque_Mortelle("Krii", "Lun", "Aus", 20, 30, 40),
 	Ponction_de_Vitalite("Gaan", "Lah", "Haas", 30, 60, 90),
@@ -108,16 +108,6 @@ public enum Shout {
 				p.getLocation().spawnEntity(w);
 				Potions.Force.effect(w, 100000, 1, potion);
 
-				for (int j = 0; j <= num*30; j++){
-					p.sendMessage(Text.of(TextColors.GREEN, j));
-					try{
-						wait(1000);
-					}catch (InterruptedException e){}
-
-					if (j == 30){
-						w.offer(Keys.HEALTH, 0.0);
-					}
-				}
 			}
 		}
 
@@ -139,6 +129,7 @@ public enum Shout {
 			}
 		}
 
+		//A reprendre aussi
 		if (this == Allie_Heroique){
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
@@ -311,34 +302,25 @@ public enum Shout {
 		}
 
 		if (this == Intimidation){
-			Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
-					"setblock "+p.getPosition().getX()+
-							" "+(p.getPosition().getY()-2)+
-							" "+p.getPosition().getZ()+
-							" minecraft:command_block 0 replace {Command:\"/effect @p minecraft:night_vision 10 1\"}");
-			Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
-					"setblock "+(p.getPosition().getX()+1)+
-							" "+(p.getPosition().getY()-2)+
-							" "+p.getPosition().getZ()+
-							" minecraft:redstone_block");
+			int x = (int) p.getPosition().getX();
+			int y = (int) p.getPosition().getY();
+			int z = (int) p.getPosition().getZ();
+			String name = p.getName();
 
-			//Partie a faire après un délai de quelques secondes.
-			/*taskB.execute(new Runnable() {
-				@Override
-				public void run() {
-					Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
-								"setblock "+(p.getPosition().getX()+1)+
-										" "+(p.getPosition().getY()-2)+
-										" "+p.getPosition().getZ()+
-										" minecraft:air");
-					Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
-								"setblock "+p.getPosition().getX()+
-										" "+(p.getPosition().getY()-2)+
-										" "+p.getPosition().getZ()+
-										" minecraft:air");
-				}
-			}).delay(3, TimeUnit.SECONDS).submit(this);*/
+			if (num == 1){
+				Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
+						"effect @e[r=10,x="+x+",y="+y+",z="+z+",name=!"+name+"] ebwizardry:fear 60");
+			}
 
+			if (num == 2){
+				Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
+						"effect @e[r=10,x="+x+",y="+y+",z="+z+",name=!"+name+"] ebwizardry:fear 120");
+			}
+
+			if (num == 3){
+				Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
+						"effect @e[r=10,x="+x+",y="+y+",z="+z+",name=!"+name+"] ebwizardry:fear 1200");
+			}
 
 		}
 
