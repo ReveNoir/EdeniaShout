@@ -22,7 +22,7 @@ import com.google.inject.Inject;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
-@Plugin(id = "edenshout", name = "Dragon Shout", version = "1.0")
+@Plugin(id = "edenshout", name = "Dragon Shout", version = "1.0", authors = "Firewolfs")
 public class Edenia{
 
     @Inject

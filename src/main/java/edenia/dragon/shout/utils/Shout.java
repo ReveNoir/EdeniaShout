@@ -2,11 +2,11 @@ package edenia.dragon.shout.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import com.flowpowered.math.imaginary.Quaterniond;
-import edenia.dragon.shout.Edenia;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.HandTypes;
@@ -20,9 +20,6 @@ import org.spongepowered.api.entity.living.monster.Monster;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSources;
 import org.spongepowered.api.item.inventory.ItemStack;
-import org.spongepowered.api.plugin.PluginManager;
-import org.spongepowered.api.scheduler.Scheduler;
-import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.Location;
@@ -30,9 +27,6 @@ import org.spongepowered.api.world.Location;
 import com.flowpowered.math.vector.Vector3d;
 import org.spongepowered.api.world.World;
 import org.spongepowered.api.world.weather.Weathers;
-
-import javax.inject.Inject;
-
 
 public enum Shout {
 	
@@ -65,12 +59,7 @@ public enum Shout {
 	public String name, m1, m2, m3;
 	public int c1, c2, c3;
 	private ArrayList<Monster> kps = new ArrayList<>();
-	private Scheduler sch = Sponge.getScheduler();
-	private Task.Builder taskB = sch.createTaskBuilder();
-
-	@Inject
-	private PluginManager plug;
-
+	public static HashMap<Player, Long> cooldown = new HashMap<>();
 	
 	@SuppressWarnings("rawtypes")
 	public static Vector3d getVelocity(Vector3d c, Location f) {
@@ -87,10 +76,29 @@ public enum Shout {
 		this.c1 = cool1;
 		this.c2 = cool2;
 		this.c3 = cool3;
+	}
 
+	public int getCooldown(int num){
+		if (num == 1){ return c1; }
+		if (num == 2){ return c2; }
+		if (num == 3){ return c3; }
+		return 0;
+	}
+
+	public boolean cooldowns(final Player p, final int num){
+		if (cooldown.containsKey(p) && cooldown.get(p) > TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())){
+			p.sendMessage(Text.of(TextColors.GREEN,"Vous pourrez reutiliser votre Thu'um dans "
+					+(cooldown.get(p) - TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()))+" secondes."));
+			return false;
+		} else {
+			cooldown.remove(p);
+			cooldown.put(p, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + getCooldown(num));
+		}
+		return true;
 	}
 
 	public void shout(final Player p, final int num){
+		if (!cooldowns(p, num)){ return; }
 
 		//A reprendre
 		if (this == Allegeance_Animale){
@@ -314,12 +322,12 @@ public enum Shout {
 
 			if (num == 2){
 				Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
-						"effect @e[r=10,x="+x+",y="+y+",z="+z+",name=!"+name+"] ebwizardry:fear 120");
+						"effect @e[r=30,x="+x+",y="+y+",z="+z+",name=!"+name+"] ebwizardry:fear 120");
 			}
 
 			if (num == 3){
 				Sponge.getCommandManager().process(Sponge.getServer().getConsole(),
-						"effect @e[r=10,x="+x+",y="+y+",z="+z+",name=!"+name+"] ebwizardry:fear 1200");
+						"effect @e[r=50,x="+x+",y="+y+",z="+z+",name=!"+name+"] ebwizardry:fear 1200");
 			}
 
 		}
