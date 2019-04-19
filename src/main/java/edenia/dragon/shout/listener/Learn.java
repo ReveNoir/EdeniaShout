@@ -202,10 +202,13 @@ public class Learn {
 						for (int i = 1; i <= 3; i++){
 							String loc = Integer.toString(i);
 							if (ConfigurationManager.getInstance().getConfig().getNode("murs", cri, "Location", loc)
-									.getString().equalsIgnoreCase(locb)){
-								ConfigurationManager.getInstance().removeConfigM(cri, loc);
-								locCri.remove(locb);
-								break;
+									.getValue() != null){
+								if (ConfigurationManager.getInstance().getConfig().getNode("murs", cri, "Location", loc)
+										.getString().equalsIgnoreCase(locb)){
+									ConfigurationManager.getInstance().removeConfigM(cri, loc);
+									locCri.remove(locb);
+									break;
+								}
 							}
 						}
 					}

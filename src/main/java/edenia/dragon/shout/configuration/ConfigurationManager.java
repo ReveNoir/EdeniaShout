@@ -48,8 +48,8 @@ public class ConfigurationManager {
 	
 	public void editConfigP(String p, String arg){
 		loadConfig();
-		if(config.getNode("shouts", "Player", p).getValue() != arg){
-			config.getNode("shouts", "Player", p).setValue(arg);
+		if(config.getNode("shouts", "Player", p.toUpperCase()).getValue() != arg){
+			config.getNode("shouts", "Player", p.toUpperCase()).setValue(arg);
 		}
 		saveConfig();
 		loadConfig();

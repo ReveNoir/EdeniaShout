@@ -20,6 +20,7 @@ import org.spongepowered.api.entity.living.monster.Monster;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSources;
 import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.Location;
@@ -93,6 +94,14 @@ public enum Shout {
 		} else {
 			cooldown.remove(p);
 			cooldown.put(p, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + getCooldown(num));
+
+		}
+
+		for (Player p2 : Sponge.getServer().getOnlinePlayers()){
+			if (p.getWorld() == p2.getWorld() && p2.getLocation().getPosition().distance(p.getPosition()) <= 10){
+				p2.sendMessage(Text.of(TextColors.GREEN,p.getName()+" "+m1.toUpperCase()+
+						(num > 1 ? " "+m2.toUpperCase()+(num > 2 ? " "+m3.toUpperCase():""):"")+" !"));
+			}
 		}
 		return true;
 	}
