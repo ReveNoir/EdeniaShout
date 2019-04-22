@@ -54,7 +54,7 @@ public class Learn {
 			}
 		}
 		Sponge.getServer().getConsole().sendMessage(Text.of(TextColors.GREEN
-				, "Chargement des Config TERMINER"));
+				, "Chargement des Configs TERMINEES"));
 	}
 
 	@Listener

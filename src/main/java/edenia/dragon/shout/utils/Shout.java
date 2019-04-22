@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import com.flowpowered.math.imaginary.Quaterniond;
+import edenia.dragon.shout.Edenia;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.HandTypes;
@@ -60,6 +61,7 @@ public enum Shout {
 	public String name, m1, m2, m3;
 	public int c1, c2, c3;
 	private ArrayList<Monster> kps = new ArrayList<>();
+	public static Edenia plugins;
 	public static HashMap<Player, Long> cooldown = new HashMap<>();
 	
 	@SuppressWarnings("rawtypes")
@@ -94,12 +96,17 @@ public enum Shout {
 		} else {
 			cooldown.remove(p);
 			cooldown.put(p, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + getCooldown(num));
-
+			Task.builder().async().delay(getCooldown(num), TimeUnit.SECONDS).execute(new Runnable() {
+				@Override
+				public void run() {
+					p.sendMessage(Text.of(TextColors.GREEN,"Vous pouvez de nouveau utiliser votre Thu'um."));
+				}
+			}).submit(plugins);
 		}
 
 		for (Player p2 : Sponge.getServer().getOnlinePlayers()){
 			if (p.getWorld() == p2.getWorld() && p2.getLocation().getPosition().distance(p.getPosition()) <= 10){
-				p2.sendMessage(Text.of(TextColors.GREEN,p.getName()+" "+m1.toUpperCase()+
+				p2.sendMessage(Text.of(TextColors.DARK_GREEN,p.getName()+" ",TextColors.GREEN,m1.toUpperCase()+
 						(num > 1 ? " "+m2.toUpperCase()+(num > 2 ? " "+m3.toUpperCase():""):"")+" !"));
 			}
 		}
@@ -237,7 +244,7 @@ public enum Shout {
 			Particules.Nuage.effet(p, 200*num);
 			for(Entity e : near){
 				if((e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 4) && e!=p){
-					e.setVelocity(getVelocity(p.getLocation().getPosition(), e.getLocation()).mul(num/ 2 + 1)
+					e.setVelocity(getVelocity(p.getLocation().getPosition(), e.getLocation()).mul(num/ 4 + 1)
 							.mul(1).add(new Vector3d(0, 0.1, 0)));
 				}
 			}

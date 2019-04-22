@@ -7,6 +7,7 @@ import edenia.dragon.shout.command.Command;
 import edenia.dragon.shout.configuration.ConfigurationManager;
 import edenia.dragon.shout.command.Liste;
 import edenia.dragon.shout.listener.Learn;
+import edenia.dragon.shout.utils.Shout;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
@@ -41,6 +42,7 @@ public class Edenia{
     @Listener
     public void onServersStarting(GameStartingServerEvent event){
         logger.info("Edenia Dragon Shout Start !");
+        Shout.plugins = this;
 
         ConfigurationManager.getInstance().setup(configFile, configManager);
         Sponge.getEventManager().registerListeners(this, new Learn(this));
