@@ -120,6 +120,7 @@ public enum Shout {
 		if (this == Allegeance_Animale){
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			for (int i = 0; i < num; i++){
 				Particules.Mob_spell.effet(p, num*35);
 				Entity w = p.getWorld().createEntity(EntityTypes.WOLF, p.getLocation().getPosition());
@@ -136,6 +137,7 @@ public enum Shout {
 		}
 
 		if (this == Allie_Draconique){
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			if (num == 1){
 				Sponge.getCommandManager().process(Sponge.getServer().getConsole()
 						, "noppes clone spawn dragon1 1 "+p.getPosition().getX()+","
@@ -157,6 +159,7 @@ public enum Shout {
 		if (this == Allie_Heroique){
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			for (int i = 0; i < num+1; i++){
 				Particules.Lave.effet(p, num*35);
 				Entity s = p.getWorld().createEntity(EntityTypes.SKELETON, p.getLocation().getPosition());
@@ -175,6 +178,7 @@ public enum Shout {
 		if (this == Aspect_Draconique){
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_ENDERDRAGON_GROWL, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			int dur = 300 * num;
 			Potions.Absorbtion.effect(p, dur, 1, potion);
 			Potions.Force.effect(p, dur, 2, potion);
@@ -182,9 +186,11 @@ public enum Shout {
 			Particules.Lave.effet(p, 100);
 		}
 
+		//Possiblement à revoir.
 		if (this == Aura_de_Perception){
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_ENDERDRAGON_HURT, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			for (Player p2 : Sponge.getServer().getOnlinePlayers()){
 				if ((p2.getWorld() == p.getWorld())
 						&& (p2.getLocation().getPosition().distance(p.getPosition()) < 10*num)){
@@ -197,6 +203,7 @@ public enum Shout {
 
 		if (this == Ciel_Degage){
 			p.getWorld().playSound(SoundTypes.ENTITY_LIGHTNING_THUNDER, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			if (num == 3){
 				p.getWorld().setWeather(Weathers.CLEAR);
 			}else{
@@ -207,6 +214,7 @@ public enum Shout {
 		if (this == Corps_Ethere){
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.BLOCK_FIRE_EXTINGUISH, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			Potions.Resistance.effect(p, 150*num, 50, potion);
 			Potions.Faiblesse.effect(p, 150*num, 50, potion);
 		}
@@ -215,6 +223,7 @@ public enum Shout {
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.BLOCK_GLASS_BREAK, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			for (Entity e : near){
 				Particules.Spell_Instant.effet(p, 35*num);
 				Living le = (Living) e;
@@ -227,6 +236,7 @@ public enum Shout {
 		if (this == Cyclone){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_FIREWORK_LARGE_BLAST, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			for (Entity e : near){
 				if ((e.getLocation().getPosition().distance(p.getPosition()) < 4) && (e!=p)){
 					Particules.Explosion.effet(p, num*10);
@@ -241,6 +251,7 @@ public enum Shout {
 		if (this == Deferlement){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_GENERIC_EXPLODE, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			Particules.Nuage.effet(p, 200*num);
 			for(Entity e : near){
 				if((e.getLocation().getPosition().distance(p.getLocation().getPosition()) < 4) && e!=p){
@@ -253,6 +264,7 @@ public enum Shout {
 		if (this == Desarmement){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.BLOCK_ANVIL_LAND, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			Particules.Crit.effet(p, 25*num);
 			for (Entity e : near){
 				if (e instanceof Player){
@@ -277,6 +289,7 @@ public enum Shout {
 		if (this == Fendragon){
 			Collection<Entity> near = p.getNearbyEntities(35);
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SHOOT, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			Particules.Magic_Crit.effet(p, 200*num);
 			for (Entity e : near){
 				if ((e != p) && (e instanceof Player)){
@@ -299,6 +312,7 @@ public enum Shout {
 			Collection<Entity> near = p.getNearbyEntities(25);
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			for (Entity e : near){
 				if (e instanceof Player){
 					Player p2 = (Player) e;
@@ -314,6 +328,7 @@ public enum Shout {
 		if (this == Furie_Elemental){
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			Potions.Minage.effect(p, num*100, num-1, potion);
 			Potions.Force.effect(p, num*100, num-1, potion);
 		}
@@ -323,9 +338,11 @@ public enum Shout {
 					-p.getHeadRotation().getY(), p.getHeadRotation().getZ()).getDirection();
 			p.setVelocity(direction.mul((num*2)+3));
 			p.getWorld().playSound(SoundTypes.ENTITY_BAT_TAKEOFF, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 		}
 
 		if (this == Intimidation){
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			int x = (int) p.getPosition().getX();
 			int y = (int) p.getPosition().getY();
 			int z = (int) p.getPosition().getZ();
@@ -351,6 +368,7 @@ public enum Shout {
 		if (this == Laceration_d_Ame){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_IRONGOLEM_ATTACK, p.getLocation().getPosition(),1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			if (num > 2){
 				Particules.Mob_spell.effet(p, num*15);
 				for (Entity e : near){
@@ -368,6 +386,7 @@ public enum Shout {
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_HURT, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			for (Entity e : near){
 				Particules.Fumer_large.effet(p, num*15);
 				if (e instanceof Player){
@@ -385,6 +404,7 @@ public enum Shout {
 			List<PotionEffect> potion1 = new ArrayList<PotionEffect>();
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_WITHER_SPAWN, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			for (Entity e : near){
 				if (e instanceof Player){
 					Player p2 = (Player) e;
@@ -403,6 +423,7 @@ public enum Shout {
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_ENDERDRAGON_GROWL, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			for (Entity e : near){
 				e.setVelocity(e.getVelocity().mul(1/num*3));
 				if ((e instanceof Living) && (e!=p)){
@@ -414,6 +435,7 @@ public enum Shout {
 		if (this == Souffle_Ardent){
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.ENTITY_GHAST_SHOOT, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			Particules.Flamme.effet(p, 100*num);
 			for (Entity e : near){
 				if((e.getLocation().getPosition().distance(p.getPosition()) < 4) && (e!=p)){
@@ -426,6 +448,7 @@ public enum Shout {
 			List<PotionEffect> potion = new ArrayList<PotionEffect>();
 			Collection<Entity> near = p.getNearbyEntities(15);
 			p.getWorld().playSound(SoundTypes.BLOCK_GLASS_BREAK, p.getLocation().getPosition(), 1);
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			Particules.Spell_Instant.effet(p, 100*num);
 			for (Entity e : near){
 				if (e instanceof Living){
@@ -439,6 +462,7 @@ public enum Shout {
 		}
 
 		if (this == Telekinesie){
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			for (Player p2 : Sponge.getServer().getOnlinePlayers()){
 				if ((p2.getWorld() == p.getWorld())
 						&& (p2.getLocation().getPosition().distance(p.getPosition()) < num*30) && (p2!=p)){
@@ -449,6 +473,7 @@ public enum Shout {
 		}
 
 		if (this == Tourmente){
+			p.getWorld().playSound(SoundTypes.ENTITY_SHULKER_HURT_CLOSED, p.getLocation().getPosition(), 1);
 			if (num == 3){p.getWorld().setWeather(Weathers.THUNDER_STORM);}
 			else {p.getWorld().setWeather(Weathers.THUNDER_STORM, 600*num);}
 

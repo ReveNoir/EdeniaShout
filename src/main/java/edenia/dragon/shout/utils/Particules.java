@@ -5,6 +5,7 @@ import org.spongepowered.api.effect.particle.ParticleTypes;
 import org.spongepowered.api.entity.living.player.Player;
 
 import com.flowpowered.math.vector.Vector3d;
+import org.spongepowered.api.world.Location;
 
 public enum Particules {
 

@@ -9,6 +9,7 @@ import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.Transaction;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.HandTypes;
+import org.spongepowered.api.effect.sound.SoundTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
@@ -71,25 +72,27 @@ public class Learn {
 		BlockSnapshot b = event.getTargetBlock();
 		String bLoca = b.getLocation().toString();
 
-		List<Text> lore = new ArrayList<Text>();
+		/*List<Text> lore = new ArrayList<Text>();
 		lore.add(Text.of(TextColors.RED, "Derniere flamme d'un dragon"));
 		ItemStack soul = ItemStack.builder()
 				.itemType(ItemTypes.NETHER_STAR)
 				.add(Keys.DISPLAY_NAME, Text.of(TextColors.AQUA, "Ame de Dragon"))
 				.add(Keys.ITEM_LORE, lore)
-				.build();
+				.build();*/
 
 		//Apprentissage des Cris
-		if((b.getState().getType() == BlockTypes.BOOKSHELF) && (locCri.containsKey(bLoca))
-				&& (p.getItemInHand(HandTypes.MAIN_HAND).get().equalTo(soul))){
+		if((b.getState().getType() == BlockTypes.PURPUR_BLOCK) && (locCri.containsKey(bLoca))
+				&& (p.getItemInHand(HandTypes.MAIN_HAND).get().getType().equals(ItemTypes.NETHER_STAR))){
 
 			String criMur = locCri.get(bLoca);
+
 			if(ConfigurationManager.getInstance().getConfig().getNode("shouts", "Learn", uuid, criMur)
 					.getValue() == null){
 				ConfigurationManager.getInstance().editConfigL(uuid, criMur, "1");
 				ConfigurationManager.getInstance().editConfigLPos(uuid, bLoca);
-				removeItem(p, soul);
+				removeItem(p, p.getItemInHand(HandTypes.MAIN_HAND).get());
 				p.sendMessage(Text.of(TextColors.GREEN, "Vous venez d'apprendre ", TextColors.DARK_GREEN,criMur));
+				p.getWorld().playSound(SoundTypes.ENTITY_ZOMBIE_PIG_DEATH, p.getLocation().getPosition(), 1);
 			}else{
 				if(ConfigurationManager.getInstance().getConfig().getNode("shouts", "Learn", uuid, criMur)
 						.getString().equalsIgnoreCase("1")) {
@@ -97,8 +100,9 @@ public class Learn {
 							.getBoolean()) {
 						ConfigurationManager.getInstance().editConfigL(uuid, criMur, "2");
 						ConfigurationManager.getInstance().editConfigLPos(uuid, bLoca);
-						removeItem(p, soul);
+						removeItem(p, p.getItemInHand(HandTypes.MAIN_HAND).get());
 						p.sendMessage(Text.of(TextColors.GREEN, "Vous venez d'apprendre ", TextColors.DARK_GREEN, criMur));
+						p.getWorld().playSound(SoundTypes.ENTITY_ZOMBIE_PIG_DEATH, p.getLocation().getPosition(), 1);
 					}
 				}else {
 					if (ConfigurationManager.getInstance().getConfig().getNode("shouts", "Learn", uuid, criMur)
@@ -107,9 +111,11 @@ public class Learn {
 								.getBoolean()) {
 							ConfigurationManager.getInstance().editConfigL(uuid, criMur, "3");
 							ConfigurationManager.getInstance().editConfigLPos(uuid, bLoca);
-							removeItem(p, soul);
+							removeItem(p, p.getItemInHand(HandTypes.MAIN_HAND).get());
 							p.sendMessage(Text.of(TextColors.GREEN, "Vous venez d'apprendre ", TextColors.DARK_GREEN
 									, criMur));
+							p.getWorld().playSound(SoundTypes.ENTITY_ZOMBIE_PIG_DEATH, p.getLocation().getPosition()
+									, 1);
 						}
 					}
 				}
@@ -117,7 +123,7 @@ public class Learn {
 		}
 
 		//Gestion de la pose des Cris
-		if((p.hasPermission("eden.op")) && (b.getState().getType() == BlockTypes.BOOKSHELF) 
+		if((p.hasPermission("eden.op")) && (b.getState().getType() == BlockTypes.PURPUR_BLOCK)
 				&& (p.getItemInHand(HandTypes.MAIN_HAND).get().getType() == ItemTypes.BOOK)){
 
 			Inventory inventory = Inventory.builder()
@@ -195,7 +201,7 @@ public class Learn {
 		if(event.getSource() instanceof Player){
 			Player p = (Player) event.getSource();
 			for(Transaction<BlockSnapshot> b : event.getTransactions()){
-				if((b.getOriginal().getState().getType() == BlockTypes.BOOKSHELF) && (p.hasPermission("eden.op"))){
+				if((b.getOriginal().getState().getType() == BlockTypes.PURPUR_BLOCK) && (p.hasPermission("eden.op"))){
 					String locb = b.getOriginal().getLocation().toString();
 					if(locCri.containsKey(locb)){
 						String cri = locCri.get(locb);
@@ -218,15 +224,8 @@ public class Learn {
 	}
 
 	private void removeItem(final Player p, final ItemStack item){
-
 		item.setQuantity(item.getQuantity() - 1);
 		p.setItemInHand(HandTypes.MAIN_HAND, item);
-		/*for (Inventory inv : p.getInventory().slots()){
-			if (inv.contains(item)){
-				inv.query(QueryOperationTypes.ITEM_STACK_IGNORE_QUANTITY.of(item)).poll(1);
-				break;
-			}
-		}*/
 	}
 
 }
