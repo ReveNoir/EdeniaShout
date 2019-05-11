@@ -23,7 +23,7 @@ import com.google.inject.Inject;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
-@Plugin(id = "edenshout", name = "Dragon Shout", version = "1.0", authors = "Firewolfs")
+@Plugin(id = "edenshout", name = "Eden Shout", version = "1.1", authors = "Firewolfs")
 public class Edenia{
 
     @Inject
@@ -61,8 +61,8 @@ public class Edenia{
                 .executor(new Command())
                 .build();
 
-        Sponge.getCommandManager().register(this, ds, "dragonshout", "ds");
-        Sponge.getCommandManager().register(this, cmd, "shout");
+        Sponge.getCommandManager().register(this, ds, "cris", "ds");
+        Sponge.getCommandManager().register(this, cmd, "cri");
     }
 
     @Listener

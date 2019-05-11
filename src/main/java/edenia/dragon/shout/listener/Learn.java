@@ -82,7 +82,8 @@ public class Learn {
 
 		//Apprentissage des Cris
 		if((b.getState().getType() == BlockTypes.PURPUR_BLOCK) && (locCri.containsKey(bLoca))
-				&& (p.getItemInHand(HandTypes.MAIN_HAND).get().getType().equals(ItemTypes.NETHER_STAR))){
+				&& (p.getItemInHand(HandTypes.MAIN_HAND).get().getType().equals(ItemTypes.NETHER_STAR))
+				&& (p.hasPermission("edenia.shout"))){
 
 			String criMur = locCri.get(bLoca);
 

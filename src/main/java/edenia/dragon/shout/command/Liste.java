@@ -55,7 +55,7 @@ public class Liste implements CommandExecutor{
 				}
 				//}
 			}else{
-				player.sendMessage(Text.of("  Liste des Cris connu"));
+				player.sendMessage(Text.of("  Liste des Cris connus"));
 				player.sendMessage(Text.of("----------------------"));
 			
 				if(player.hasPermission("eden.op")){
